@@ -1,5 +1,5 @@
 {
-  "name": "playStore-BE",
+  "name": "playstore-be",
   "type": "module",
   "scripts": {
     "dev": "tsx watch src/index.ts",
@@ -8,11 +8,27 @@
   },
   "dependencies": {
     "@hono/node-server": "^1.14.1",
+    "@prisma/client": "^6.7.0",
     "hono": "^4.7.9"
   },
   "devDependencies": {
-    "@types/node": "^20.11.17",
-    "tsx": "^4.7.1",
+    "@types/node": "^20.17.46",
+    "prisma": "^6.7.0",
+    "tsx": "^4.19.4",
     "typescript": "^5.8.3"
-  }
+  },
+  "version": "1.0.0",
+  "description": "``` npm install npm run dev ```",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/choden12/Playstore_Backend.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/choden12/Playstore_Backend/issues"
+  },
+  "homepage": "https://github.com/choden12/Playstore_Backend#readme"
 }
