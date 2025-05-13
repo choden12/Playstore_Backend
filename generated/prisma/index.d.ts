@@ -14,10 +14,33 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>
 
 
 /**
+ * Model App
+ * 
+ */
+export type App = $Result.DefaultSelection<Prisma.$AppPayload>
+/**
  * Model games
  * 
  */
 export type games = $Result.DefaultSelection<Prisma.$gamesPayload>
+
+/**
+ * Enums
+ */
+export namespace $Enums {
+  export const AppCategory: {
+  recommended: 'recommended',
+  reference: 'reference',
+  productivity: 'productivity'
+};
+
+export type AppCategory = (typeof AppCategory)[keyof typeof AppCategory]
+
+}
+
+export type AppCategory = $Enums.AppCategory
+
+export const AppCategory: typeof $Enums.AppCategory
 
 /**
  * ##  Prisma Client ʲˢ
@@ -26,8 +49,8 @@ export type games = $Result.DefaultSelection<Prisma.$gamesPayload>
  * @example
  * ```
  * const prisma = new PrismaClient()
- * // Fetch zero or more Games
- * const games = await prisma.games.findMany()
+ * // Fetch zero or more Apps
+ * const apps = await prisma.app.findMany()
  * ```
  *
  *
@@ -47,8 +70,8 @@ export class PrismaClient<
    * @example
    * ```
    * const prisma = new PrismaClient()
-   * // Fetch zero or more Games
-   * const games = await prisma.games.findMany()
+   * // Fetch zero or more Apps
+   * const apps = await prisma.app.findMany()
    * ```
    *
    *
@@ -145,6 +168,16 @@ export class PrismaClient<
   }>>
 
       /**
+   * `prisma.app`: Exposes CRUD operations for the **App** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Apps
+    * const apps = await prisma.app.findMany()
+    * ```
+    */
+  get app(): Prisma.AppDelegate<ExtArgs, ClientOptions>;
+
+  /**
    * `prisma.games`: Exposes CRUD operations for the **games** model.
     * Example usage:
     * ```ts
@@ -593,6 +626,7 @@ export namespace Prisma {
 
 
   export const ModelName: {
+    App: 'App',
     games: 'games'
   };
 
@@ -612,10 +646,84 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "games"
+      modelProps: "app" | "games"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
+      App: {
+        payload: Prisma.$AppPayload<ExtArgs>
+        fields: Prisma.AppFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.AppFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AppPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.AppFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AppPayload>
+          }
+          findFirst: {
+            args: Prisma.AppFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AppPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.AppFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AppPayload>
+          }
+          findMany: {
+            args: Prisma.AppFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AppPayload>[]
+          }
+          create: {
+            args: Prisma.AppCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AppPayload>
+          }
+          createMany: {
+            args: Prisma.AppCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.AppCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AppPayload>[]
+          }
+          delete: {
+            args: Prisma.AppDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AppPayload>
+          }
+          update: {
+            args: Prisma.AppUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AppPayload>
+          }
+          deleteMany: {
+            args: Prisma.AppDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.AppUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.AppUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AppPayload>[]
+          }
+          upsert: {
+            args: Prisma.AppUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AppPayload>
+          }
+          aggregate: {
+            args: Prisma.AppAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateApp>
+          }
+          groupBy: {
+            args: Prisma.AppGroupByArgs<ExtArgs>
+            result: $Utils.Optional<AppGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.AppCountArgs<ExtArgs>
+            result: $Utils.Optional<AppCountAggregateOutputType> | number
+          }
+        }
+      }
       games: {
         payload: Prisma.$gamesPayload<ExtArgs>
         fields: Prisma.gamesFieldRefs
@@ -774,6 +882,7 @@ export namespace Prisma {
     omit?: Prisma.GlobalOmitConfig
   }
   export type GlobalOmitConfig = {
+    app?: AppOmit
     games?: gamesOmit
   }
 
@@ -868,6 +977,1065 @@ export namespace Prisma {
   /**
    * Models
    */
+
+  /**
+   * Model App
+   */
+
+  export type AggregateApp = {
+    _count: AppCountAggregateOutputType | null
+    _avg: AppAvgAggregateOutputType | null
+    _sum: AppSumAggregateOutputType | null
+    _min: AppMinAggregateOutputType | null
+    _max: AppMaxAggregateOutputType | null
+  }
+
+  export type AppAvgAggregateOutputType = {
+    id: number | null
+    rating: number | null
+  }
+
+  export type AppSumAggregateOutputType = {
+    id: number | null
+    rating: number | null
+  }
+
+  export type AppMinAggregateOutputType = {
+    id: number | null
+    name: string | null
+    description: string | null
+    rating: number | null
+    image: string | null
+    category: $Enums.AppCategory | null
+    createdAt: Date | null
+  }
+
+  export type AppMaxAggregateOutputType = {
+    id: number | null
+    name: string | null
+    description: string | null
+    rating: number | null
+    image: string | null
+    category: $Enums.AppCategory | null
+    createdAt: Date | null
+  }
+
+  export type AppCountAggregateOutputType = {
+    id: number
+    name: number
+    description: number
+    rating: number
+    image: number
+    category: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type AppAvgAggregateInputType = {
+    id?: true
+    rating?: true
+  }
+
+  export type AppSumAggregateInputType = {
+    id?: true
+    rating?: true
+  }
+
+  export type AppMinAggregateInputType = {
+    id?: true
+    name?: true
+    description?: true
+    rating?: true
+    image?: true
+    category?: true
+    createdAt?: true
+  }
+
+  export type AppMaxAggregateInputType = {
+    id?: true
+    name?: true
+    description?: true
+    rating?: true
+    image?: true
+    category?: true
+    createdAt?: true
+  }
+
+  export type AppCountAggregateInputType = {
+    id?: true
+    name?: true
+    description?: true
+    rating?: true
+    image?: true
+    category?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type AppAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which App to aggregate.
+     */
+    where?: AppWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Apps to fetch.
+     */
+    orderBy?: AppOrderByWithRelationInput | AppOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: AppWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Apps from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Apps.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Apps
+    **/
+    _count?: true | AppCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: AppAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: AppSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: AppMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: AppMaxAggregateInputType
+  }
+
+  export type GetAppAggregateType<T extends AppAggregateArgs> = {
+        [P in keyof T & keyof AggregateApp]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateApp[P]>
+      : GetScalarType<T[P], AggregateApp[P]>
+  }
+
+
+
+
+  export type AppGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AppWhereInput
+    orderBy?: AppOrderByWithAggregationInput | AppOrderByWithAggregationInput[]
+    by: AppScalarFieldEnum[] | AppScalarFieldEnum
+    having?: AppScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: AppCountAggregateInputType | true
+    _avg?: AppAvgAggregateInputType
+    _sum?: AppSumAggregateInputType
+    _min?: AppMinAggregateInputType
+    _max?: AppMaxAggregateInputType
+  }
+
+  export type AppGroupByOutputType = {
+    id: number
+    name: string
+    description: string | null
+    rating: number | null
+    image: string | null
+    category: $Enums.AppCategory
+    createdAt: Date
+    _count: AppCountAggregateOutputType | null
+    _avg: AppAvgAggregateOutputType | null
+    _sum: AppSumAggregateOutputType | null
+    _min: AppMinAggregateOutputType | null
+    _max: AppMaxAggregateOutputType | null
+  }
+
+  type GetAppGroupByPayload<T extends AppGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<AppGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof AppGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], AppGroupByOutputType[P]>
+            : GetScalarType<T[P], AppGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type AppSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    description?: boolean
+    rating?: boolean
+    image?: boolean
+    category?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["app"]>
+
+  export type AppSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    description?: boolean
+    rating?: boolean
+    image?: boolean
+    category?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["app"]>
+
+  export type AppSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    description?: boolean
+    rating?: boolean
+    image?: boolean
+    category?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["app"]>
+
+  export type AppSelectScalar = {
+    id?: boolean
+    name?: boolean
+    description?: boolean
+    rating?: boolean
+    image?: boolean
+    category?: boolean
+    createdAt?: boolean
+  }
+
+  export type AppOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "rating" | "image" | "category" | "createdAt", ExtArgs["result"]["app"]>
+
+  export type $AppPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "App"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      name: string
+      description: string | null
+      rating: number | null
+      image: string | null
+      category: $Enums.AppCategory
+      createdAt: Date
+    }, ExtArgs["result"]["app"]>
+    composites: {}
+  }
+
+  type AppGetPayload<S extends boolean | null | undefined | AppDefaultArgs> = $Result.GetResult<Prisma.$AppPayload, S>
+
+  type AppCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<AppFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: AppCountAggregateInputType | true
+    }
+
+  export interface AppDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['App'], meta: { name: 'App' } }
+    /**
+     * Find zero or one App that matches the filter.
+     * @param {AppFindUniqueArgs} args - Arguments to find a App
+     * @example
+     * // Get one App
+     * const app = await prisma.app.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends AppFindUniqueArgs>(args: SelectSubset<T, AppFindUniqueArgs<ExtArgs>>): Prisma__AppClient<$Result.GetResult<Prisma.$AppPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one App that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {AppFindUniqueOrThrowArgs} args - Arguments to find a App
+     * @example
+     * // Get one App
+     * const app = await prisma.app.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends AppFindUniqueOrThrowArgs>(args: SelectSubset<T, AppFindUniqueOrThrowArgs<ExtArgs>>): Prisma__AppClient<$Result.GetResult<Prisma.$AppPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first App that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AppFindFirstArgs} args - Arguments to find a App
+     * @example
+     * // Get one App
+     * const app = await prisma.app.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends AppFindFirstArgs>(args?: SelectSubset<T, AppFindFirstArgs<ExtArgs>>): Prisma__AppClient<$Result.GetResult<Prisma.$AppPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first App that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AppFindFirstOrThrowArgs} args - Arguments to find a App
+     * @example
+     * // Get one App
+     * const app = await prisma.app.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends AppFindFirstOrThrowArgs>(args?: SelectSubset<T, AppFindFirstOrThrowArgs<ExtArgs>>): Prisma__AppClient<$Result.GetResult<Prisma.$AppPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Apps that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AppFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Apps
+     * const apps = await prisma.app.findMany()
+     * 
+     * // Get first 10 Apps
+     * const apps = await prisma.app.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const appWithIdOnly = await prisma.app.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends AppFindManyArgs>(args?: SelectSubset<T, AppFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AppPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a App.
+     * @param {AppCreateArgs} args - Arguments to create a App.
+     * @example
+     * // Create one App
+     * const App = await prisma.app.create({
+     *   data: {
+     *     // ... data to create a App
+     *   }
+     * })
+     * 
+     */
+    create<T extends AppCreateArgs>(args: SelectSubset<T, AppCreateArgs<ExtArgs>>): Prisma__AppClient<$Result.GetResult<Prisma.$AppPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Apps.
+     * @param {AppCreateManyArgs} args - Arguments to create many Apps.
+     * @example
+     * // Create many Apps
+     * const app = await prisma.app.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends AppCreateManyArgs>(args?: SelectSubset<T, AppCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Apps and returns the data saved in the database.
+     * @param {AppCreateManyAndReturnArgs} args - Arguments to create many Apps.
+     * @example
+     * // Create many Apps
+     * const app = await prisma.app.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Apps and only return the `id`
+     * const appWithIdOnly = await prisma.app.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends AppCreateManyAndReturnArgs>(args?: SelectSubset<T, AppCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AppPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a App.
+     * @param {AppDeleteArgs} args - Arguments to delete one App.
+     * @example
+     * // Delete one App
+     * const App = await prisma.app.delete({
+     *   where: {
+     *     // ... filter to delete one App
+     *   }
+     * })
+     * 
+     */
+    delete<T extends AppDeleteArgs>(args: SelectSubset<T, AppDeleteArgs<ExtArgs>>): Prisma__AppClient<$Result.GetResult<Prisma.$AppPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one App.
+     * @param {AppUpdateArgs} args - Arguments to update one App.
+     * @example
+     * // Update one App
+     * const app = await prisma.app.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends AppUpdateArgs>(args: SelectSubset<T, AppUpdateArgs<ExtArgs>>): Prisma__AppClient<$Result.GetResult<Prisma.$AppPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Apps.
+     * @param {AppDeleteManyArgs} args - Arguments to filter Apps to delete.
+     * @example
+     * // Delete a few Apps
+     * const { count } = await prisma.app.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends AppDeleteManyArgs>(args?: SelectSubset<T, AppDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Apps.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AppUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Apps
+     * const app = await prisma.app.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends AppUpdateManyArgs>(args: SelectSubset<T, AppUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Apps and returns the data updated in the database.
+     * @param {AppUpdateManyAndReturnArgs} args - Arguments to update many Apps.
+     * @example
+     * // Update many Apps
+     * const app = await prisma.app.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Apps and only return the `id`
+     * const appWithIdOnly = await prisma.app.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends AppUpdateManyAndReturnArgs>(args: SelectSubset<T, AppUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AppPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one App.
+     * @param {AppUpsertArgs} args - Arguments to update or create a App.
+     * @example
+     * // Update or create a App
+     * const app = await prisma.app.upsert({
+     *   create: {
+     *     // ... data to create a App
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the App we want to update
+     *   }
+     * })
+     */
+    upsert<T extends AppUpsertArgs>(args: SelectSubset<T, AppUpsertArgs<ExtArgs>>): Prisma__AppClient<$Result.GetResult<Prisma.$AppPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Apps.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AppCountArgs} args - Arguments to filter Apps to count.
+     * @example
+     * // Count the number of Apps
+     * const count = await prisma.app.count({
+     *   where: {
+     *     // ... the filter for the Apps we want to count
+     *   }
+     * })
+    **/
+    count<T extends AppCountArgs>(
+      args?: Subset<T, AppCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], AppCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a App.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AppAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends AppAggregateArgs>(args: Subset<T, AppAggregateArgs>): Prisma.PrismaPromise<GetAppAggregateType<T>>
+
+    /**
+     * Group by App.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AppGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends AppGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: AppGroupByArgs['orderBy'] }
+        : { orderBy?: AppGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, AppGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetAppGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the App model
+   */
+  readonly fields: AppFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for App.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__AppClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the App model
+   */
+  interface AppFieldRefs {
+    readonly id: FieldRef<"App", 'Int'>
+    readonly name: FieldRef<"App", 'String'>
+    readonly description: FieldRef<"App", 'String'>
+    readonly rating: FieldRef<"App", 'Float'>
+    readonly image: FieldRef<"App", 'String'>
+    readonly category: FieldRef<"App", 'AppCategory'>
+    readonly createdAt: FieldRef<"App", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * App findUnique
+   */
+  export type AppFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the App
+     */
+    select?: AppSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the App
+     */
+    omit?: AppOmit<ExtArgs> | null
+    /**
+     * Filter, which App to fetch.
+     */
+    where: AppWhereUniqueInput
+  }
+
+  /**
+   * App findUniqueOrThrow
+   */
+  export type AppFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the App
+     */
+    select?: AppSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the App
+     */
+    omit?: AppOmit<ExtArgs> | null
+    /**
+     * Filter, which App to fetch.
+     */
+    where: AppWhereUniqueInput
+  }
+
+  /**
+   * App findFirst
+   */
+  export type AppFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the App
+     */
+    select?: AppSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the App
+     */
+    omit?: AppOmit<ExtArgs> | null
+    /**
+     * Filter, which App to fetch.
+     */
+    where?: AppWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Apps to fetch.
+     */
+    orderBy?: AppOrderByWithRelationInput | AppOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Apps.
+     */
+    cursor?: AppWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Apps from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Apps.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Apps.
+     */
+    distinct?: AppScalarFieldEnum | AppScalarFieldEnum[]
+  }
+
+  /**
+   * App findFirstOrThrow
+   */
+  export type AppFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the App
+     */
+    select?: AppSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the App
+     */
+    omit?: AppOmit<ExtArgs> | null
+    /**
+     * Filter, which App to fetch.
+     */
+    where?: AppWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Apps to fetch.
+     */
+    orderBy?: AppOrderByWithRelationInput | AppOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Apps.
+     */
+    cursor?: AppWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Apps from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Apps.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Apps.
+     */
+    distinct?: AppScalarFieldEnum | AppScalarFieldEnum[]
+  }
+
+  /**
+   * App findMany
+   */
+  export type AppFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the App
+     */
+    select?: AppSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the App
+     */
+    omit?: AppOmit<ExtArgs> | null
+    /**
+     * Filter, which Apps to fetch.
+     */
+    where?: AppWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Apps to fetch.
+     */
+    orderBy?: AppOrderByWithRelationInput | AppOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Apps.
+     */
+    cursor?: AppWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Apps from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Apps.
+     */
+    skip?: number
+    distinct?: AppScalarFieldEnum | AppScalarFieldEnum[]
+  }
+
+  /**
+   * App create
+   */
+  export type AppCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the App
+     */
+    select?: AppSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the App
+     */
+    omit?: AppOmit<ExtArgs> | null
+    /**
+     * The data needed to create a App.
+     */
+    data: XOR<AppCreateInput, AppUncheckedCreateInput>
+  }
+
+  /**
+   * App createMany
+   */
+  export type AppCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Apps.
+     */
+    data: AppCreateManyInput | AppCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * App createManyAndReturn
+   */
+  export type AppCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the App
+     */
+    select?: AppSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the App
+     */
+    omit?: AppOmit<ExtArgs> | null
+    /**
+     * The data used to create many Apps.
+     */
+    data: AppCreateManyInput | AppCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * App update
+   */
+  export type AppUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the App
+     */
+    select?: AppSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the App
+     */
+    omit?: AppOmit<ExtArgs> | null
+    /**
+     * The data needed to update a App.
+     */
+    data: XOR<AppUpdateInput, AppUncheckedUpdateInput>
+    /**
+     * Choose, which App to update.
+     */
+    where: AppWhereUniqueInput
+  }
+
+  /**
+   * App updateMany
+   */
+  export type AppUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Apps.
+     */
+    data: XOR<AppUpdateManyMutationInput, AppUncheckedUpdateManyInput>
+    /**
+     * Filter which Apps to update
+     */
+    where?: AppWhereInput
+    /**
+     * Limit how many Apps to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * App updateManyAndReturn
+   */
+  export type AppUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the App
+     */
+    select?: AppSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the App
+     */
+    omit?: AppOmit<ExtArgs> | null
+    /**
+     * The data used to update Apps.
+     */
+    data: XOR<AppUpdateManyMutationInput, AppUncheckedUpdateManyInput>
+    /**
+     * Filter which Apps to update
+     */
+    where?: AppWhereInput
+    /**
+     * Limit how many Apps to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * App upsert
+   */
+  export type AppUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the App
+     */
+    select?: AppSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the App
+     */
+    omit?: AppOmit<ExtArgs> | null
+    /**
+     * The filter to search for the App to update in case it exists.
+     */
+    where: AppWhereUniqueInput
+    /**
+     * In case the App found by the `where` argument doesn't exist, create a new App with this data.
+     */
+    create: XOR<AppCreateInput, AppUncheckedCreateInput>
+    /**
+     * In case the App was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<AppUpdateInput, AppUncheckedUpdateInput>
+  }
+
+  /**
+   * App delete
+   */
+  export type AppDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the App
+     */
+    select?: AppSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the App
+     */
+    omit?: AppOmit<ExtArgs> | null
+    /**
+     * Filter which App to delete.
+     */
+    where: AppWhereUniqueInput
+  }
+
+  /**
+   * App deleteMany
+   */
+  export type AppDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Apps to delete
+     */
+    where?: AppWhereInput
+    /**
+     * Limit how many Apps to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * App without action
+   */
+  export type AppDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the App
+     */
+    select?: AppSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the App
+     */
+    omit?: AppOmit<ExtArgs> | null
+  }
+
 
   /**
    * Model games
@@ -1929,6 +3097,19 @@ export namespace Prisma {
   export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
 
 
+  export const AppScalarFieldEnum: {
+    id: 'id',
+    name: 'name',
+    description: 'description',
+    rating: 'rating',
+    image: 'image',
+    category: 'category',
+    createdAt: 'createdAt'
+  };
+
+  export type AppScalarFieldEnum = (typeof AppScalarFieldEnum)[keyof typeof AppScalarFieldEnum]
+
+
   export const GamesScalarFieldEnum: {
     id: 'id',
     title: 'title',
@@ -2010,10 +3191,102 @@ export namespace Prisma {
    */
   export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
     
+
+
+  /**
+   * Reference to a field of type 'AppCategory'
+   */
+  export type EnumAppCategoryFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AppCategory'>
+    
+
+
+  /**
+   * Reference to a field of type 'AppCategory[]'
+   */
+  export type ListEnumAppCategoryFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AppCategory[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'DateTime'
+   */
+  export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
+    
+
+
+  /**
+   * Reference to a field of type 'DateTime[]'
+   */
+  export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
+    
   /**
    * Deep Input Types
    */
 
+
+  export type AppWhereInput = {
+    AND?: AppWhereInput | AppWhereInput[]
+    OR?: AppWhereInput[]
+    NOT?: AppWhereInput | AppWhereInput[]
+    id?: IntFilter<"App"> | number
+    name?: StringFilter<"App"> | string
+    description?: StringNullableFilter<"App"> | string | null
+    rating?: FloatNullableFilter<"App"> | number | null
+    image?: StringNullableFilter<"App"> | string | null
+    category?: EnumAppCategoryFilter<"App"> | $Enums.AppCategory
+    createdAt?: DateTimeFilter<"App"> | Date | string
+  }
+
+  export type AppOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrderInput | SortOrder
+    rating?: SortOrderInput | SortOrder
+    image?: SortOrderInput | SortOrder
+    category?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type AppWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: AppWhereInput | AppWhereInput[]
+    OR?: AppWhereInput[]
+    NOT?: AppWhereInput | AppWhereInput[]
+    name?: StringFilter<"App"> | string
+    description?: StringNullableFilter<"App"> | string | null
+    rating?: FloatNullableFilter<"App"> | number | null
+    image?: StringNullableFilter<"App"> | string | null
+    category?: EnumAppCategoryFilter<"App"> | $Enums.AppCategory
+    createdAt?: DateTimeFilter<"App"> | Date | string
+  }, "id">
+
+  export type AppOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrderInput | SortOrder
+    rating?: SortOrderInput | SortOrder
+    image?: SortOrderInput | SortOrder
+    category?: SortOrder
+    createdAt?: SortOrder
+    _count?: AppCountOrderByAggregateInput
+    _avg?: AppAvgOrderByAggregateInput
+    _max?: AppMaxOrderByAggregateInput
+    _min?: AppMinOrderByAggregateInput
+    _sum?: AppSumOrderByAggregateInput
+  }
+
+  export type AppScalarWhereWithAggregatesInput = {
+    AND?: AppScalarWhereWithAggregatesInput | AppScalarWhereWithAggregatesInput[]
+    OR?: AppScalarWhereWithAggregatesInput[]
+    NOT?: AppScalarWhereWithAggregatesInput | AppScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"App"> | number
+    name?: StringWithAggregatesFilter<"App"> | string
+    description?: StringNullableWithAggregatesFilter<"App"> | string | null
+    rating?: FloatNullableWithAggregatesFilter<"App"> | number | null
+    image?: StringNullableWithAggregatesFilter<"App"> | string | null
+    category?: EnumAppCategoryWithAggregatesFilter<"App"> | $Enums.AppCategory
+    createdAt?: DateTimeWithAggregatesFilter<"App"> | Date | string
+  }
 
   export type gamesWhereInput = {
     AND?: gamesWhereInput | gamesWhereInput[]
@@ -2072,6 +3345,73 @@ export namespace Prisma {
     category?: StringNullableWithAggregatesFilter<"games"> | string | null
     rating?: FloatNullableWithAggregatesFilter<"games"> | number | null
     imageurl?: StringNullableWithAggregatesFilter<"games"> | string | null
+  }
+
+  export type AppCreateInput = {
+    name: string
+    description?: string | null
+    rating?: number | null
+    image?: string | null
+    category: $Enums.AppCategory
+    createdAt?: Date | string
+  }
+
+  export type AppUncheckedCreateInput = {
+    id?: number
+    name: string
+    description?: string | null
+    rating?: number | null
+    image?: string | null
+    category: $Enums.AppCategory
+    createdAt?: Date | string
+  }
+
+  export type AppUpdateInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    rating?: NullableFloatFieldUpdateOperationsInput | number | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    category?: EnumAppCategoryFieldUpdateOperationsInput | $Enums.AppCategory
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AppUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    rating?: NullableFloatFieldUpdateOperationsInput | number | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    category?: EnumAppCategoryFieldUpdateOperationsInput | $Enums.AppCategory
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AppCreateManyInput = {
+    id?: number
+    name: string
+    description?: string | null
+    rating?: number | null
+    image?: string | null
+    category: $Enums.AppCategory
+    createdAt?: Date | string
+  }
+
+  export type AppUpdateManyMutationInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    rating?: NullableFloatFieldUpdateOperationsInput | number | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    category?: EnumAppCategoryFieldUpdateOperationsInput | $Enums.AppCategory
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AppUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    rating?: NullableFloatFieldUpdateOperationsInput | number | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    category?: EnumAppCategoryFieldUpdateOperationsInput | $Enums.AppCategory
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type gamesCreateInput = {
@@ -2145,6 +3485,21 @@ export namespace Prisma {
     not?: NestedIntFilter<$PrismaModel> | number
   }
 
+  export type StringFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel>
+    in?: string[] | ListStringFieldRefInput<$PrismaModel>
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringFilter<$PrismaModel> | string
+  }
+
   export type StringNullableFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
@@ -2171,9 +3526,159 @@ export namespace Prisma {
     not?: NestedFloatNullableFilter<$PrismaModel> | number | null
   }
 
+  export type EnumAppCategoryFilter<$PrismaModel = never> = {
+    equals?: $Enums.AppCategory | EnumAppCategoryFieldRefInput<$PrismaModel>
+    in?: $Enums.AppCategory[] | ListEnumAppCategoryFieldRefInput<$PrismaModel>
+    notIn?: $Enums.AppCategory[] | ListEnumAppCategoryFieldRefInput<$PrismaModel>
+    not?: NestedEnumAppCategoryFilter<$PrismaModel> | $Enums.AppCategory
+  }
+
+  export type DateTimeFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
+  }
+
+  export type AppCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    rating?: SortOrder
+    image?: SortOrder
+    category?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type AppAvgOrderByAggregateInput = {
+    id?: SortOrder
+    rating?: SortOrder
+  }
+
+  export type AppMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    rating?: SortOrder
+    image?: SortOrder
+    category?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type AppMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    rating?: SortOrder
+    image?: SortOrder
+    category?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type AppSumOrderByAggregateInput = {
+    id?: SortOrder
+    rating?: SortOrder
+  }
+
+  export type IntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+
+  export type StringWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel>
+    in?: string[] | ListStringFieldRefInput<$PrismaModel>
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringWithAggregatesFilter<$PrismaModel> | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedStringFilter<$PrismaModel>
+    _max?: NestedStringFilter<$PrismaModel>
+  }
+
+  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
+  export type FloatNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedFloatNullableFilter<$PrismaModel>
+    _min?: NestedFloatNullableFilter<$PrismaModel>
+    _max?: NestedFloatNullableFilter<$PrismaModel>
+  }
+
+  export type EnumAppCategoryWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.AppCategory | EnumAppCategoryFieldRefInput<$PrismaModel>
+    in?: $Enums.AppCategory[] | ListEnumAppCategoryFieldRefInput<$PrismaModel>
+    notIn?: $Enums.AppCategory[] | ListEnumAppCategoryFieldRefInput<$PrismaModel>
+    not?: NestedEnumAppCategoryWithAggregatesFilter<$PrismaModel> | $Enums.AppCategory
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumAppCategoryFilter<$PrismaModel>
+    _max?: NestedEnumAppCategoryFilter<$PrismaModel>
+  }
+
+  export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedDateTimeFilter<$PrismaModel>
+    _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
   export type gamesCountOrderByAggregateInput = {
@@ -2213,54 +3718,8 @@ export namespace Prisma {
     rating?: SortOrder
   }
 
-  export type IntWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedIntFilter<$PrismaModel>
-    _min?: NestedIntFilter<$PrismaModel>
-    _max?: NestedIntFilter<$PrismaModel>
-  }
-
-  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedStringNullableFilter<$PrismaModel>
-    _max?: NestedStringNullableFilter<$PrismaModel>
-  }
-
-  export type FloatNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatNullableWithAggregatesFilter<$PrismaModel> | number | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _avg?: NestedFloatNullableFilter<$PrismaModel>
-    _sum?: NestedFloatNullableFilter<$PrismaModel>
-    _min?: NestedFloatNullableFilter<$PrismaModel>
-    _max?: NestedFloatNullableFilter<$PrismaModel>
+  export type StringFieldUpdateOperationsInput = {
+    set?: string
   }
 
   export type NullableStringFieldUpdateOperationsInput = {
@@ -2273,6 +3732,14 @@ export namespace Prisma {
     decrement?: number
     multiply?: number
     divide?: number
+  }
+
+  export type EnumAppCategoryFieldUpdateOperationsInput = {
+    set?: $Enums.AppCategory
+  }
+
+  export type DateTimeFieldUpdateOperationsInput = {
+    set?: Date | string
   }
 
   export type IntFieldUpdateOperationsInput = {
@@ -2292,6 +3759,20 @@ export namespace Prisma {
     gt?: number | IntFieldRefInput<$PrismaModel>
     gte?: number | IntFieldRefInput<$PrismaModel>
     not?: NestedIntFilter<$PrismaModel> | number
+  }
+
+  export type NestedStringFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel>
+    in?: string[] | ListStringFieldRefInput<$PrismaModel>
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringFilter<$PrismaModel> | string
   }
 
   export type NestedStringNullableFilter<$PrismaModel = never> = {
@@ -2319,6 +3800,24 @@ export namespace Prisma {
     not?: NestedFloatNullableFilter<$PrismaModel> | number | null
   }
 
+  export type NestedEnumAppCategoryFilter<$PrismaModel = never> = {
+    equals?: $Enums.AppCategory | EnumAppCategoryFieldRefInput<$PrismaModel>
+    in?: $Enums.AppCategory[] | ListEnumAppCategoryFieldRefInput<$PrismaModel>
+    notIn?: $Enums.AppCategory[] | ListEnumAppCategoryFieldRefInput<$PrismaModel>
+    not?: NestedEnumAppCategoryFilter<$PrismaModel> | $Enums.AppCategory
+  }
+
+  export type NestedDateTimeFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
+  }
+
   export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[] | ListIntFieldRefInput<$PrismaModel>
@@ -2344,6 +3843,23 @@ export namespace Prisma {
     gt?: number | FloatFieldRefInput<$PrismaModel>
     gte?: number | FloatFieldRefInput<$PrismaModel>
     not?: NestedFloatFilter<$PrismaModel> | number
+  }
+
+  export type NestedStringWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel>
+    in?: string[] | ListStringFieldRefInput<$PrismaModel>
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringWithAggregatesFilter<$PrismaModel> | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedStringFilter<$PrismaModel>
+    _max?: NestedStringFilter<$PrismaModel>
   }
 
   export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -2388,6 +3904,30 @@ export namespace Prisma {
     _sum?: NestedFloatNullableFilter<$PrismaModel>
     _min?: NestedFloatNullableFilter<$PrismaModel>
     _max?: NestedFloatNullableFilter<$PrismaModel>
+  }
+
+  export type NestedEnumAppCategoryWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.AppCategory | EnumAppCategoryFieldRefInput<$PrismaModel>
+    in?: $Enums.AppCategory[] | ListEnumAppCategoryFieldRefInput<$PrismaModel>
+    notIn?: $Enums.AppCategory[] | ListEnumAppCategoryFieldRefInput<$PrismaModel>
+    not?: NestedEnumAppCategoryWithAggregatesFilter<$PrismaModel> | $Enums.AppCategory
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumAppCategoryFilter<$PrismaModel>
+    _max?: NestedEnumAppCategoryFilter<$PrismaModel>
+  }
+
+  export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedDateTimeFilter<$PrismaModel>
+    _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
 
