@@ -120,6 +120,16 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
   Serializable: 'Serializable'
 });
 
+exports.Prisma.AppScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  rating: 'rating',
+  image: 'image',
+  category: 'category',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.GamesScalarFieldEnum = {
   id: 'id',
   title: 'title',
@@ -143,9 +153,14 @@ exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
 };
-
+exports.AppCategory = exports.$Enums.AppCategory = {
+  recommended: 'recommended',
+  reference: 'reference',
+  productivity: 'productivity'
+};
 
 exports.Prisma.ModelName = {
+  App: 'App',
   games: 'games'
 };
 
