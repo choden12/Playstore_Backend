@@ -32,3 +32,17 @@ model games {
   rating      Float?
   imageurl    String? @db.VarChar(255)
 }
+
+model User {
+  id      String    @id @default(uuid())
+  email   String    @unique
+  hashPassword String
+  Account Account[]
+}
+
+model Account {
+  id      String @id @default(uuid())
+  userId  String
+  user    User   @relation(fields: [userId], references: [id])
+  balance Int    @default(0)
+}
