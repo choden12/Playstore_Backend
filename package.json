@@ -1,35 +1,26 @@
 {
-  "name": "c",
-  "type": "module",
-  "scripts": {
-    "dev": "tsx watch src/index.ts",
-    "build": "tsc",
-    "start": "node dist/index.js"
-  },
-  "dependencies": {
-    "@hono/node-server": "^1.14.1",
-    "@prisma/client": "^6.7.0",
-    "hono": "^4.7.9"
-  },
-  "devDependencies": {
-    "@types/bun": "^1.2.15",
-    "@types/node": "^20.17.46",
-    "prisma": "^6.7.0",
-    "tsx": "^4.19.4",
-    "typescript": "^5.8.3"
-  },
+  "name": "playstore_backend",
   "version": "1.0.0",
-  "description": "``` npm install npm run dev ```",
+  "description": "",
   "main": "index.js",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/choden12/Playstore_Backend.git"
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/choden12/Playstore_Backend/issues"
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0"
   },
-  "homepage": "https://github.com/choden12/Playstore_Backend#readme"
+  "devDependencies": {
+    "@types/express": "^5.0.3",
+    "@types/node": "^24.0.0",
+    "eslint": "^9.28.0",
+    "nodemon": "^3.1.10",
+    "prettier": "^3.5.3",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.8.3"
+  }
 }
