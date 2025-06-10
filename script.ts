@@ -1,18 +1,11 @@
-import { PrismaClient } from "@prisma/client/extension"
+import { PrismaClient } from "@prisma/client/extension";
 
-
-const prisma = new PrismaClient()
+const prisma = new PrismaClient();
 
 async function main() {
-  // ... you will write your Prisma Client queries here
+  // Your Prisma Client queries here
 }
 
-main()
-  .then(async () => {
-    await prisma.$disconnect()
-  })
-  .catch(async (e) => {
-    console.error(e)
-    await prisma.$disconnect()
-    process.exit(1)
-  })
+main().finally(async () => {
+  await prisma.$disconnect();
+});
