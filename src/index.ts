@@ -1,16 +1,22 @@
-import express from "express";
-import cors from "cors";
-import dotenv from "dotenv";
+import express from 'express';
+import cors from 'cors';
+import dotenv from 'dotenv';
+import userRoutes from './routes/userRoutes';
 import { logger } from "./middleware/logger";
 import routes from "./routes";
 import { errorHandler } from "./middleware/errorHandler";
 
-// Load environment variables
 dotenv.config();
-
 const app = express();
+app.use(express.json());
 
-// Middleware: Logging
+app.use(cors({
+  origin: process.env.ALLOWED_ORIGINS?.split(',') || '*',
+}));
+app.use(express.json());
+
+app.use('/api/users', userRoutes);
+
 app.use(logger);
 
 // Middleware: Body parsing
