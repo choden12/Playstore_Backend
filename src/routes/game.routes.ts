@@ -1,17 +1,22 @@
-import { Router, Request, Response, NextFunction } from 'express';
+import { Router } from 'express';
 import * as gameController from '../controllers/game.controller';
+import { validateGame } from '../middleware/game.middleware';
 
 const router = Router();
 
-// Async handler to catch errors in async route handlers
-const asyncHandler = (fn: any) => (req: Request, res: Response, next: NextFunction) =>
-  Promise.resolve(fn(req, res, next)).catch(next);
+// Get all games
+router.get('/games', gameController.getAllGames);
 
-// Game endpoints
-router.get('/', asyncHandler(gameController.getAllGames));
-router.get('/:id', asyncHandler(gameController.getGameById));
-router.post('/', asyncHandler(gameController.createGame));
-router.put('/:id', asyncHandler(gameController.updateGame));
-router.delete('/:id', asyncHandler(gameController.deleteGame));
+// Get game by ID
+router.get('/games/:id', gameController.getGameById);
+
+// Create a new game
+router.post('/games', validateGame, gameController.createGame);
+
+// Update an existing game
+router.put('/games/:id', validateGame, gameController.updateGame);
+
+// Delete a game
+router.delete('/games/:id', gameController.deleteGame);
 
 export default router;

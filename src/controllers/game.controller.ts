@@ -1,50 +1,47 @@
 import { Request, Response } from 'express';
 import * as gameService from '../services/game.service';
 
-export const getAllGames = async (req: Request, res: Response) => {
-  const games = await gameService.getAllGames();
-  res.json(games);
+export const getAllGames = (req: Request, res: Response): void => {
+  res.json(gameService.getAllGames());
 };
 
-export const getGameById = async (req: Request, res: Response) => {
+export const getGameById = (req: Request, res: Response): void => {
   const id = Number(req.params.id);
-  if (isNaN(id)) return res.status(400).json({ error: 'Invalid ID' });
-  const game = await gameService.getGameById(id);
-  if (!game) return res.status(404).json({ error: 'Game not found' });
+  const game = gameService.getGameById(id);
+  if (!game) {
+    res.status(404).json({ error: 'Game not found' });
+    return;
+  }
   res.json(game);
 };
 
-export const createGame = async (req: Request, res: Response) => {
-  const { image, name, tags, rating, categoryId } = req.body;
-  if (!image || !name || !tags || !rating || !categoryId) {
-    return res.status(400).json({ error: 'Missing required fields' });
+export const createGame = (req: Request, res: Response): void => {
+  const { image, name, tags, rating } = req.body;
+  if (!image || !name || !tags || typeof rating !== 'number') {
+    res.status(400).json({ error: 'Missing required fields' });
+    return;
   }
-  const game = await gameService.createGame({ image, name, tags, rating, categoryId });
+  const game = gameService.createGame({ image, name, tags, rating });
   res.status(201).json(game);
 };
 
-export const updateGame = async (req: Request, res: Response) => {
+export const updateGame = (req: Request, res: Response): void => {
   const id = Number(req.params.id);
-  if (isNaN(id)) return res.status(400).json({ error: 'Invalid ID' });
-  const { image, name, tags, rating, categoryId } = req.body;
-  if (!image && !name && !tags && !rating && !categoryId) {
-    return res.status(400).json({ error: 'No fields to update' });
-  }
-  try {
-    const game = await gameService.updateGame(id, { image, name, tags, rating, categoryId });
-    res.json(game);
-  } catch {
+  const { image, name, tags, rating } = req.body;
+  const updated = gameService.updateGame(id, { image, name, tags, rating });
+  if (!updated) {
     res.status(404).json({ error: 'Game not found' });
+    return;
   }
+  res.json(updated);
 };
 
-export const deleteGame = async (req: Request, res: Response) => {
+export const deleteGame = (req: Request, res: Response): void => {
   const id = Number(req.params.id);
-  if (isNaN(id)) return res.status(400).json({ error: 'Invalid ID' });
-  try {
-    await gameService.deleteGame(id);
-    res.status(204).send();
-  } catch {
+  const deleted = gameService.deleteGame(id);
+  if (!deleted) {
     res.status(404).json({ error: 'Game not found' });
+    return;
   }
+  res.status(204).send();
 };
