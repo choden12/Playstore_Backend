@@ -8,11 +8,26 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model Category {
+  id    Int    @id @default(autoincrement())
+  name  String @unique
+}
+
+model game {
+  id       Int     @id @default(autoincrement())
+  image    String  @db.VarChar(255)
+  name     String  @db.VarChar(100)
+  tags     String  @db.VarChar(255)
+  rating   Decimal @db.Decimal(2, 1)
+  category String  @db.VarChar(100) // Store category name directly
+
 model User {
   id        Int      @id @default(autoincrement())
   email     String   @unique
   password  String
   createdAt DateTime @default(now())
+}
+
 
 // Review model
 model Review {
@@ -37,4 +52,3 @@ model Comment {
   userId    Int
   review    Review   @relation(fields: [reviewId], references: [id])
   reviewId  Int
-}
