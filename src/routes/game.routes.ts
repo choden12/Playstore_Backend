@@ -5,18 +5,21 @@ import { validateGame } from '../middleware/game.middleware';
 const router = Router();
 
 // Get all games
-router.get('/games', gameController.getAllGames);
+router.get('/', gameController.getAllGames);
 
 // Get game by ID
-router.get('/games/:id', gameController.getGameById);
+router.get('/:id', gameController.getGameById);
 
 // Create a new game
-router.post('/games', validateGame, gameController.createGame);
+router.post('/', validateGame, gameController.createGame);
 
 // Update an existing game
-router.put('/games/:id', validateGame, gameController.updateGame);
+router.put('/:id', validateGame, gameController.updateGame);
 
 // Delete a game
-router.delete('/games/:id', gameController.deleteGame);
+router.delete('/:id', gameController.deleteGame);
+
+// Get all games for frontend (with name/tags)
+router.get('/frontend/games', gameController.getAllGamesFrontend);
 
 export default router;

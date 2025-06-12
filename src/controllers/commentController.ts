@@ -12,8 +12,7 @@ export const createComment = async (
   next: NextFunction
 ) => {
   try {
-    // Only accept fields that exist in the Comment model
-    const { reviewId, text, userId } = req.body;
+    const { reviewId, text, userId, rating, gameId } = req.body;
     if (!reviewId || !text || !userId) {
       return res
         .status(400)
@@ -21,9 +20,11 @@ export const createComment = async (
     }
     const comment = await prisma.comment.create({
       data: {
-        reviewId: Number(reviewId),
-        text,
-        userId: Number(userId),
+        reviewId: req.body.reviewId,
+        text: req.body.text,
+        userId: (req as any).user.id,
+        rating: req.body.rating,
+        gameId: req.body.gameId
       },
     });
     res.status(201).json(comment);
