@@ -120,11 +120,43 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
   Serializable: 'Serializable'
 });
 
+exports.Prisma.CategoryScalarFieldEnum = {
+  id: 'id',
+  name: 'name'
+};
+
+exports.Prisma.GameScalarFieldEnum = {
+  id: 'id',
+  image: 'image',
+  name: 'name',
+  tags: 'tags',
+  rating: 'rating',
+  category: 'category'
+};
+
 exports.Prisma.UserScalarFieldEnum = {
   id: 'id',
   email: 'email',
   password: 'password',
   createdAt: 'createdAt'
+};
+
+exports.Prisma.ReviewScalarFieldEnum = {
+  id: 'id',
+  rating: 'rating',
+  text: 'text',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  userId: 'userId',
+  gameId: 'gameId'
+};
+
+exports.Prisma.CommentScalarFieldEnum = {
+  id: 'id',
+  text: 'text',
+  createdAt: 'createdAt',
+  userId: 'userId',
+  reviewId: 'reviewId'
 };
 
 exports.Prisma.SortOrder = {
@@ -139,7 +171,11 @@ exports.Prisma.QueryMode = {
 
 
 exports.Prisma.ModelName = {
-  User: 'User'
+  Category: 'Category',
+  Game: 'Game',
+  User: 'User',
+  Review: 'Review',
+  Comment: 'Comment'
 };
 
 /**

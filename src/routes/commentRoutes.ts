@@ -1,26 +1,31 @@
 import { Router } from "express";
 import { body, param } from "express-validator";
-import { createComment } from "../controllers/commentController";
-import { getCommentsForReview } from "../controllers/commentController";
-// import { protect } from "../middleware/auth";
+import {
+  createComment,
+  getCommentsForGame,
+} from "../controllers/commentController";
 
 const router = Router();
 
-// POST /api/v1/comments
+// POST /api/comments
 router.post(
   "/",
   [
-    body("reviewId").isInt().withMessage("reviewId must be an integer"),
+    body("gameId").isInt().withMessage("gameId must be an integer"),
     body("text").isLength({ min: 1 }).withMessage("text is required"),
+    body("rating").isInt({ min: 1, max: 5 }).withMessage("rating must be 1-5"),
+    body("userId").isInt().withMessage("userId must be an integer"),
   ],
-  createComment
+  (req: import("express").Request, res: import("express").Response, next: import("express").NextFunction) => {
+    Promise.resolve(createComment(req, res, next)).catch(next);
+  }
 );
 
-// GET /api/v1/comments/review/:reviewId
+// GET /api/comments/game/:gameId
 router.get(
-  "/review/:reviewId",
-  [param("reviewId").isInt().withMessage("reviewId must be an integer")],
-  getCommentsForReview
+  "/game/:gameId",
+  [param("gameId").isInt().withMessage("gameId must be an integer")],
+  getCommentsForGame
 );
 
 export default router;

@@ -1,4 +1,7 @@
 import { Request, Response, NextFunction } from "express";
+import { PrismaClient } from "../generated/prisma";
+
+const prisma = new PrismaClient();
 
 /**
  * Create a new comment for a review.
@@ -9,40 +12,47 @@ export const createComment = async (
   next: NextFunction
 ) => {
   try {
-    // ...business logic to create comment...
-    res.status(201).json({ message: "Comment created" });
+    // Only accept fields that exist in the Comment model
+    const { reviewId, text, userId } = req.body;
+    if (!reviewId || !text || !userId) {
+      return res
+        .status(400)
+        .json({ error: "reviewId, text, and userId are required." });
+    }
+    const comment = await prisma.comment.create({
+      data: {
+        reviewId: Number(reviewId),
+        text,
+        userId: Number(userId),
+      },
+    });
+    res.status(201).json(comment);
   } catch (err) {
     next(err);
   }
 };
 
 /**
- * List all comments for a review.
+ * Get comments for a specific game.
  */
-export const listComments = async (
+export const getCommentsForGame = async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
   try {
-    // ...business logic to list comments...
-    res.status(200).json({ comments: [] });
-  } catch (err) {
-    next(err);
-  }
-};
-
-/**
- * Get comments for a specific review.
- */
-export const getCommentsForReview = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
-  try {
-    // Implement logic to fetch comments for a review
-    res.json({ comments: [] });
+    const gameId = Number(req.params.gameId);
+    // Find all reviews for the game, then all comments for those reviews
+    const reviews = await prisma.review.findMany({
+      where: { gameId },
+      select: { id: true },
+    });
+    const reviewIds = reviews.map((r) => r.id);
+    const comments = await prisma.comment.findMany({
+      where: { reviewId: { in: reviewIds } },
+      include: { user: true },
+    });
+    res.json({ comments });
   } catch (err) {
     next(err);
   }

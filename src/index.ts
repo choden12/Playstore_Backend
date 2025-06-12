@@ -1,40 +1,45 @@
-import express from 'express';
-import cors from 'cors';
-import dotenv from 'dotenv';
-import userRoutes from './routes/userRoutes';
+import express from "express";
+import cors from "cors";
+import dotenv from "dotenv";
+import userRoutes from "./routes/userRoutes";
 import { logger } from "./middleware/logger";
 import routes from "./routes";
 import { errorHandler } from "./middleware/errorHandler";
+import gameRoutes from "./routes/game.routes";
+import reviewRoutes from "./routes/reviewRoutes";
+import commentRoutes from "./routes/commentRoutes";
 
 dotenv.config();
 const app = express();
-app.use(express.json());
 
-app.use(cors({
-  origin: process.env.ALLOWED_ORIGINS?.split(',') || '*',
-}));
-app.use(express.json());
-
-app.use('/api/users', userRoutes);
-
-app.use(logger);
-
-// Middleware: Body parsing
+// Body parsing middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Middleware: CORS
+// CORS middleware
 app.use(
   cors({
-    origin: process.env.CORS_ORIGIN?.split(",") || ["http://localhost:3000"],
+    origin: process.env.ALLOWED_ORIGINS?.split(",") ||
+      process.env.CORS_ORIGIN?.split(",") || ["http://localhost:3000"],
     credentials: true,
   })
 );
 
-// API Versioning (URL-based)
-app.use("/api/v1", routes);
+// Logger middleware
+app.use(logger);
 
-// Central Error Handler
+// Mount user and game routes
+app.use("/api/users", userRoutes);
+app.use("/api", gameRoutes);
+
+// Mount review and comment routes
+app.use("/api/reviews", reviewRoutes);
+app.use("/api/comments", commentRoutes);
+
+// Mount other API routes
+app.use("/api", routes);
+
+// Central error handler
 app.use(errorHandler);
 
 export default app;
