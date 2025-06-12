@@ -2358,28 +2358,31 @@ export namespace Prisma {
   export type GameMinAggregateOutputType = {
     id: number | null
     image: string | null
-    name: string | null
-    tags: string | null
+    title: string | null
+    icon: string | null
     rating: Decimal | null
     category: string | null
+    description: string | null
   }
 
   export type GameMaxAggregateOutputType = {
     id: number | null
     image: string | null
-    name: string | null
-    tags: string | null
+    title: string | null
+    icon: string | null
     rating: Decimal | null
     category: string | null
+    description: string | null
   }
 
   export type GameCountAggregateOutputType = {
     id: number
     image: number
-    name: number
-    tags: number
+    title: number
+    icon: number
     rating: number
     category: number
+    description: number
     _all: number
   }
 
@@ -2397,28 +2400,31 @@ export namespace Prisma {
   export type GameMinAggregateInputType = {
     id?: true
     image?: true
-    name?: true
-    tags?: true
+    title?: true
+    icon?: true
     rating?: true
     category?: true
+    description?: true
   }
 
   export type GameMaxAggregateInputType = {
     id?: true
     image?: true
-    name?: true
-    tags?: true
+    title?: true
+    icon?: true
     rating?: true
     category?: true
+    description?: true
   }
 
   export type GameCountAggregateInputType = {
     id?: true
     image?: true
-    name?: true
-    tags?: true
+    title?: true
+    icon?: true
     rating?: true
     category?: true
+    description?: true
     _all?: true
   }
 
@@ -2511,10 +2517,11 @@ export namespace Prisma {
   export type GameGroupByOutputType = {
     id: number
     image: string
-    name: string
-    tags: string
+    title: string
+    icon: string
     rating: Decimal
     category: string
+    description: string | null
     _count: GameCountAggregateOutputType | null
     _avg: GameAvgAggregateOutputType | null
     _sum: GameSumAggregateOutputType | null
@@ -2539,10 +2546,11 @@ export namespace Prisma {
   export type GameSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     image?: boolean
-    name?: boolean
-    tags?: boolean
+    title?: boolean
+    icon?: boolean
     rating?: boolean
     category?: boolean
+    description?: boolean
     reviews?: boolean | Game$reviewsArgs<ExtArgs>
     Comment?: boolean | Game$CommentArgs<ExtArgs>
     _count?: boolean | GameCountOutputTypeDefaultArgs<ExtArgs>
@@ -2551,31 +2559,34 @@ export namespace Prisma {
   export type GameSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     image?: boolean
-    name?: boolean
-    tags?: boolean
+    title?: boolean
+    icon?: boolean
     rating?: boolean
     category?: boolean
+    description?: boolean
   }, ExtArgs["result"]["game"]>
 
   export type GameSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     image?: boolean
-    name?: boolean
-    tags?: boolean
+    title?: boolean
+    icon?: boolean
     rating?: boolean
     category?: boolean
+    description?: boolean
   }, ExtArgs["result"]["game"]>
 
   export type GameSelectScalar = {
     id?: boolean
     image?: boolean
-    name?: boolean
-    tags?: boolean
+    title?: boolean
+    icon?: boolean
     rating?: boolean
     category?: boolean
+    description?: boolean
   }
 
-  export type GameOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "image" | "name" | "tags" | "rating" | "category", ExtArgs["result"]["game"]>
+  export type GameOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "image" | "title" | "icon" | "rating" | "category" | "description", ExtArgs["result"]["game"]>
   export type GameInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     reviews?: boolean | Game$reviewsArgs<ExtArgs>
     Comment?: boolean | Game$CommentArgs<ExtArgs>
@@ -2593,10 +2604,11 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: number
       image: string
-      name: string
-      tags: string
+      title: string
+      icon: string
       rating: Prisma.Decimal
       category: string
+      description: string | null
     }, ExtArgs["result"]["game"]>
     composites: {}
   }
@@ -3024,10 +3036,11 @@ export namespace Prisma {
   interface GameFieldRefs {
     readonly id: FieldRef<"Game", 'Int'>
     readonly image: FieldRef<"Game", 'String'>
-    readonly name: FieldRef<"Game", 'String'>
-    readonly tags: FieldRef<"Game", 'String'>
+    readonly title: FieldRef<"Game", 'String'>
+    readonly icon: FieldRef<"Game", 'String'>
     readonly rating: FieldRef<"Game", 'Decimal'>
     readonly category: FieldRef<"Game", 'String'>
+    readonly description: FieldRef<"Game", 'String'>
   }
     
 
@@ -6963,10 +6976,11 @@ export namespace Prisma {
   export const GameScalarFieldEnum: {
     id: 'id',
     image: 'image',
-    name: 'name',
-    tags: 'tags',
+    title: 'title',
+    icon: 'icon',
     rating: 'rating',
-    category: 'category'
+    category: 'category',
+    description: 'description'
   };
 
   export type GameScalarFieldEnum = (typeof GameScalarFieldEnum)[keyof typeof GameScalarFieldEnum]
@@ -7155,10 +7169,11 @@ export namespace Prisma {
     NOT?: GameWhereInput | GameWhereInput[]
     id?: IntFilter<"Game"> | number
     image?: StringFilter<"Game"> | string
-    name?: StringFilter<"Game"> | string
-    tags?: StringFilter<"Game"> | string
+    title?: StringFilter<"Game"> | string
+    icon?: StringFilter<"Game"> | string
     rating?: DecimalFilter<"Game"> | Decimal | DecimalJsLike | number | string
     category?: StringFilter<"Game"> | string
+    description?: StringNullableFilter<"Game"> | string | null
     reviews?: ReviewListRelationFilter
     Comment?: CommentListRelationFilter
   }
@@ -7166,10 +7181,11 @@ export namespace Prisma {
   export type GameOrderByWithRelationInput = {
     id?: SortOrder
     image?: SortOrder
-    name?: SortOrder
-    tags?: SortOrder
+    title?: SortOrder
+    icon?: SortOrder
     rating?: SortOrder
     category?: SortOrder
+    description?: SortOrderInput | SortOrder
     reviews?: ReviewOrderByRelationAggregateInput
     Comment?: CommentOrderByRelationAggregateInput
   }
@@ -7180,10 +7196,11 @@ export namespace Prisma {
     OR?: GameWhereInput[]
     NOT?: GameWhereInput | GameWhereInput[]
     image?: StringFilter<"Game"> | string
-    name?: StringFilter<"Game"> | string
-    tags?: StringFilter<"Game"> | string
+    title?: StringFilter<"Game"> | string
+    icon?: StringFilter<"Game"> | string
     rating?: DecimalFilter<"Game"> | Decimal | DecimalJsLike | number | string
     category?: StringFilter<"Game"> | string
+    description?: StringNullableFilter<"Game"> | string | null
     reviews?: ReviewListRelationFilter
     Comment?: CommentListRelationFilter
   }, "id">
@@ -7191,10 +7208,11 @@ export namespace Prisma {
   export type GameOrderByWithAggregationInput = {
     id?: SortOrder
     image?: SortOrder
-    name?: SortOrder
-    tags?: SortOrder
+    title?: SortOrder
+    icon?: SortOrder
     rating?: SortOrder
     category?: SortOrder
+    description?: SortOrderInput | SortOrder
     _count?: GameCountOrderByAggregateInput
     _avg?: GameAvgOrderByAggregateInput
     _max?: GameMaxOrderByAggregateInput
@@ -7208,10 +7226,11 @@ export namespace Prisma {
     NOT?: GameScalarWhereWithAggregatesInput | GameScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"Game"> | number
     image?: StringWithAggregatesFilter<"Game"> | string
-    name?: StringWithAggregatesFilter<"Game"> | string
-    tags?: StringWithAggregatesFilter<"Game"> | string
+    title?: StringWithAggregatesFilter<"Game"> | string
+    icon?: StringWithAggregatesFilter<"Game"> | string
     rating?: DecimalWithAggregatesFilter<"Game"> | Decimal | DecimalJsLike | number | string
     category?: StringWithAggregatesFilter<"Game"> | string
+    description?: StringNullableWithAggregatesFilter<"Game"> | string | null
   }
 
   export type UserWhereInput = {
@@ -7449,10 +7468,11 @@ export namespace Prisma {
 
   export type GameCreateInput = {
     image: string
-    name: string
-    tags: string
+    title: string
+    icon: string
     rating: Decimal | DecimalJsLike | number | string
     category: string
+    description?: string | null
     reviews?: ReviewCreateNestedManyWithoutGameInput
     Comment?: CommentCreateNestedManyWithoutGameInput
   }
@@ -7460,20 +7480,22 @@ export namespace Prisma {
   export type GameUncheckedCreateInput = {
     id?: number
     image: string
-    name: string
-    tags: string
+    title: string
+    icon: string
     rating: Decimal | DecimalJsLike | number | string
     category: string
+    description?: string | null
     reviews?: ReviewUncheckedCreateNestedManyWithoutGameInput
     Comment?: CommentUncheckedCreateNestedManyWithoutGameInput
   }
 
   export type GameUpdateInput = {
     image?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    tags?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    icon?: StringFieldUpdateOperationsInput | string
     rating?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     category?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     reviews?: ReviewUpdateManyWithoutGameNestedInput
     Comment?: CommentUpdateManyWithoutGameNestedInput
   }
@@ -7481,10 +7503,11 @@ export namespace Prisma {
   export type GameUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     image?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    tags?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    icon?: StringFieldUpdateOperationsInput | string
     rating?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     category?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     reviews?: ReviewUncheckedUpdateManyWithoutGameNestedInput
     Comment?: CommentUncheckedUpdateManyWithoutGameNestedInput
   }
@@ -7492,27 +7515,30 @@ export namespace Prisma {
   export type GameCreateManyInput = {
     id?: number
     image: string
-    name: string
-    tags: string
+    title: string
+    icon: string
     rating: Decimal | DecimalJsLike | number | string
     category: string
+    description?: string | null
   }
 
   export type GameUpdateManyMutationInput = {
     image?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    tags?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    icon?: StringFieldUpdateOperationsInput | string
     rating?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     category?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type GameUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     image?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    tags?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    icon?: StringFieldUpdateOperationsInput | string
     rating?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     category?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type UserCreateInput = {
@@ -7796,6 +7822,21 @@ export namespace Prisma {
     not?: NestedDecimalFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
   }
 
+  export type StringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
   export type ReviewListRelationFilter = {
     every?: ReviewWhereInput
     some?: ReviewWhereInput
@@ -7806,6 +7847,11 @@ export namespace Prisma {
     every?: CommentWhereInput
     some?: CommentWhereInput
     none?: CommentWhereInput
+  }
+
+  export type SortOrderInput = {
+    sort: SortOrder
+    nulls?: NullsOrder
   }
 
   export type ReviewOrderByRelationAggregateInput = {
@@ -7819,10 +7865,11 @@ export namespace Prisma {
   export type GameCountOrderByAggregateInput = {
     id?: SortOrder
     image?: SortOrder
-    name?: SortOrder
-    tags?: SortOrder
+    title?: SortOrder
+    icon?: SortOrder
     rating?: SortOrder
     category?: SortOrder
+    description?: SortOrder
   }
 
   export type GameAvgOrderByAggregateInput = {
@@ -7833,19 +7880,21 @@ export namespace Prisma {
   export type GameMaxOrderByAggregateInput = {
     id?: SortOrder
     image?: SortOrder
-    name?: SortOrder
-    tags?: SortOrder
+    title?: SortOrder
+    icon?: SortOrder
     rating?: SortOrder
     category?: SortOrder
+    description?: SortOrder
   }
 
   export type GameMinOrderByAggregateInput = {
     id?: SortOrder
     image?: SortOrder
-    name?: SortOrder
-    tags?: SortOrder
+    title?: SortOrder
+    icon?: SortOrder
     rating?: SortOrder
     category?: SortOrder
+    description?: SortOrder
   }
 
   export type GameSumOrderByAggregateInput = {
@@ -7867,6 +7916,24 @@ export namespace Prisma {
     _sum?: NestedDecimalFilter<$PrismaModel>
     _min?: NestedDecimalFilter<$PrismaModel>
     _max?: NestedDecimalFilter<$PrismaModel>
+  }
+
+  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
   export type DateTimeFilter<$PrismaModel = never> = {
@@ -7993,11 +8060,6 @@ export namespace Prisma {
     isNot?: ReviewWhereInput | null
   }
 
-  export type SortOrderInput = {
-    sort: SortOrder
-    nulls?: NullsOrder
-  }
-
   export type CommentCountOrderByAggregateInput = {
     id?: SortOrder
     text?: SortOrder
@@ -8106,6 +8168,10 @@ export namespace Prisma {
     decrement?: Decimal | DecimalJsLike | number | string
     multiply?: Decimal | DecimalJsLike | number | string
     divide?: Decimal | DecimalJsLike | number | string
+  }
+
+  export type NullableStringFieldUpdateOperationsInput = {
+    set?: string | null
   }
 
   export type ReviewUpdateManyWithoutGameNestedInput = {
@@ -8454,6 +8520,20 @@ export namespace Prisma {
     not?: NestedDecimalFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
   }
 
+  export type NestedStringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
   export type NestedDecimalWithAggregatesFilter<$PrismaModel = never> = {
     equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
     in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
@@ -8468,6 +8548,34 @@ export namespace Prisma {
     _sum?: NestedDecimalFilter<$PrismaModel>
     _min?: NestedDecimalFilter<$PrismaModel>
     _max?: NestedDecimalFilter<$PrismaModel>
+  }
+
+  export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
+  export type NestedIntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
   export type NestedDateTimeFilter<$PrismaModel = never> = {
@@ -8493,17 +8601,6 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedDateTimeFilter<$PrismaModel>
     _max?: NestedDateTimeFilter<$PrismaModel>
-  }
-
-  export type NestedIntNullableFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
   export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -8757,20 +8854,22 @@ export namespace Prisma {
 
   export type GameCreateWithoutReviewsInput = {
     image: string
-    name: string
-    tags: string
+    title: string
+    icon: string
     rating: Decimal | DecimalJsLike | number | string
     category: string
+    description?: string | null
     Comment?: CommentCreateNestedManyWithoutGameInput
   }
 
   export type GameUncheckedCreateWithoutReviewsInput = {
     id?: number
     image: string
-    name: string
-    tags: string
+    title: string
+    icon: string
     rating: Decimal | DecimalJsLike | number | string
     category: string
+    description?: string | null
     Comment?: CommentUncheckedCreateNestedManyWithoutGameInput
   }
 
@@ -8845,20 +8944,22 @@ export namespace Prisma {
 
   export type GameUpdateWithoutReviewsInput = {
     image?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    tags?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    icon?: StringFieldUpdateOperationsInput | string
     rating?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     category?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     Comment?: CommentUpdateManyWithoutGameNestedInput
   }
 
   export type GameUncheckedUpdateWithoutReviewsInput = {
     id?: IntFieldUpdateOperationsInput | number
     image?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    tags?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    icon?: StringFieldUpdateOperationsInput | string
     rating?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     category?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     Comment?: CommentUncheckedUpdateManyWithoutGameNestedInput
   }
 
@@ -8900,20 +9001,22 @@ export namespace Prisma {
 
   export type GameCreateWithoutCommentInput = {
     image: string
-    name: string
-    tags: string
+    title: string
+    icon: string
     rating: Decimal | DecimalJsLike | number | string
     category: string
+    description?: string | null
     reviews?: ReviewCreateNestedManyWithoutGameInput
   }
 
   export type GameUncheckedCreateWithoutCommentInput = {
     id?: number
     image: string
-    name: string
-    tags: string
+    title: string
+    icon: string
     rating: Decimal | DecimalJsLike | number | string
     category: string
+    description?: string | null
     reviews?: ReviewUncheckedCreateNestedManyWithoutGameInput
   }
 
@@ -8985,20 +9088,22 @@ export namespace Prisma {
 
   export type GameUpdateWithoutCommentInput = {
     image?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    tags?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    icon?: StringFieldUpdateOperationsInput | string
     rating?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     category?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     reviews?: ReviewUpdateManyWithoutGameNestedInput
   }
 
   export type GameUncheckedUpdateWithoutCommentInput = {
     id?: IntFieldUpdateOperationsInput | number
     image?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    tags?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    icon?: StringFieldUpdateOperationsInput | string
     rating?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     category?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     reviews?: ReviewUncheckedUpdateManyWithoutGameNestedInput
   }
 

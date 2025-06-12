@@ -14,14 +14,15 @@ model Category {
 }
 
 model Game {
-  id       Int       @id @default(autoincrement())
-  image    String    @db.VarChar(255)
-  name     String    @db.VarChar(100)
-  tags     String    @db.VarChar(255)
-  rating   Decimal   @db.Decimal(2, 1)
-  category String    @db.VarChar(100) // Store category name directly
-  reviews  Review[]
-  Comment  Comment[]
+  id          Int       @id @default(autoincrement())
+  image       String    @db.VarChar(255)
+  title       String    @db.VarChar(100)
+  icon        String    @db.VarChar(255)
+  rating      Decimal   @db.Decimal(2, 1)
+  category    String    @db.VarChar(100)
+  description String?
+  reviews     Review[]
+  Comment     Comment[]
 }
 
 model User {

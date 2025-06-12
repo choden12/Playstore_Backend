@@ -128,10 +128,11 @@ exports.Prisma.CategoryScalarFieldEnum = {
 exports.Prisma.GameScalarFieldEnum = {
   id: 'id',
   image: 'image',
-  name: 'name',
-  tags: 'tags',
+  title: 'title',
+  icon: 'icon',
   rating: 'rating',
-  category: 'category'
+  category: 'category',
+  description: 'description'
 };
 
 exports.Prisma.UserScalarFieldEnum = {
