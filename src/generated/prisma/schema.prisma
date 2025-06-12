@@ -14,13 +14,14 @@ model Category {
 }
 
 model Game {
-  id       Int      @id @default(autoincrement())
-  image    String   @db.VarChar(255)
-  name     String   @db.VarChar(100)
-  tags     String   @db.VarChar(255)
-  rating   Decimal  @db.Decimal(2, 1)
-  category String   @db.VarChar(100) // Store category name directly
+  id       Int       @id @default(autoincrement())
+  image    String    @db.VarChar(255)
+  name     String    @db.VarChar(100)
+  tags     String    @db.VarChar(255)
+  rating   Decimal   @db.Decimal(2, 1)
+  category String    @db.VarChar(100) // Store category name directly
   reviews  Review[]
+  Comment  Comment[]
 }
 
 model User {
@@ -50,9 +51,12 @@ model Review {
 model Comment {
   id        Int      @id @default(autoincrement())
   text      String
+  rating    Int // 1-5 stars
   createdAt DateTime @default(now())
   user      User     @relation(fields: [userId], references: [id])
   userId    Int
-  review    Review   @relation(fields: [reviewId], references: [id])
-  reviewId  Int
+  game      Game     @relation(fields: [gameId], references: [id])
+  gameId    Int
+  Review    Review?  @relation(fields: [reviewId], references: [id])
+  reviewId  Int?
 }

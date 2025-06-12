@@ -1234,10 +1234,12 @@ export namespace Prisma {
 
   export type GameCountOutputType = {
     reviews: number
+    Comment: number
   }
 
   export type GameCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     reviews?: boolean | GameCountOutputTypeCountReviewsArgs
+    Comment?: boolean | GameCountOutputTypeCountCommentArgs
   }
 
   // Custom InputTypes
@@ -1256,6 +1258,13 @@ export namespace Prisma {
    */
   export type GameCountOutputTypeCountReviewsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: ReviewWhereInput
+  }
+
+  /**
+   * GameCountOutputType without action
+   */
+  export type GameCountOutputTypeCountCommentArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CommentWhereInput
   }
 
 
@@ -2535,6 +2544,7 @@ export namespace Prisma {
     rating?: boolean
     category?: boolean
     reviews?: boolean | Game$reviewsArgs<ExtArgs>
+    Comment?: boolean | Game$CommentArgs<ExtArgs>
     _count?: boolean | GameCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["game"]>
 
@@ -2568,6 +2578,7 @@ export namespace Prisma {
   export type GameOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "image" | "name" | "tags" | "rating" | "category", ExtArgs["result"]["game"]>
   export type GameInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     reviews?: boolean | Game$reviewsArgs<ExtArgs>
+    Comment?: boolean | Game$CommentArgs<ExtArgs>
     _count?: boolean | GameCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type GameIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -2577,6 +2588,7 @@ export namespace Prisma {
     name: "Game"
     objects: {
       reviews: Prisma.$ReviewPayload<ExtArgs>[]
+      Comment: Prisma.$CommentPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -2980,6 +2992,7 @@ export namespace Prisma {
   export interface Prisma__GameClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     reviews<T extends Game$reviewsArgs<ExtArgs> = {}>(args?: Subset<T, Game$reviewsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    Comment<T extends Game$CommentArgs<ExtArgs> = {}>(args?: Subset<T, Game$CommentArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3424,6 +3437,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: ReviewScalarFieldEnum | ReviewScalarFieldEnum[]
+  }
+
+  /**
+   * Game.Comment
+   */
+  export type Game$CommentArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Comment
+     */
+    select?: CommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Comment
+     */
+    omit?: CommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommentInclude<ExtArgs> | null
+    where?: CommentWhereInput
+    orderBy?: CommentOrderByWithRelationInput | CommentOrderByWithRelationInput[]
+    cursor?: CommentWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: CommentScalarFieldEnum | CommentScalarFieldEnum[]
   }
 
   /**
@@ -5746,37 +5783,47 @@ export namespace Prisma {
 
   export type CommentAvgAggregateOutputType = {
     id: number | null
+    rating: number | null
     userId: number | null
+    gameId: number | null
     reviewId: number | null
   }
 
   export type CommentSumAggregateOutputType = {
     id: number | null
+    rating: number | null
     userId: number | null
+    gameId: number | null
     reviewId: number | null
   }
 
   export type CommentMinAggregateOutputType = {
     id: number | null
     text: string | null
+    rating: number | null
     createdAt: Date | null
     userId: number | null
+    gameId: number | null
     reviewId: number | null
   }
 
   export type CommentMaxAggregateOutputType = {
     id: number | null
     text: string | null
+    rating: number | null
     createdAt: Date | null
     userId: number | null
+    gameId: number | null
     reviewId: number | null
   }
 
   export type CommentCountAggregateOutputType = {
     id: number
     text: number
+    rating: number
     createdAt: number
     userId: number
+    gameId: number
     reviewId: number
     _all: number
   }
@@ -5784,37 +5831,47 @@ export namespace Prisma {
 
   export type CommentAvgAggregateInputType = {
     id?: true
+    rating?: true
     userId?: true
+    gameId?: true
     reviewId?: true
   }
 
   export type CommentSumAggregateInputType = {
     id?: true
+    rating?: true
     userId?: true
+    gameId?: true
     reviewId?: true
   }
 
   export type CommentMinAggregateInputType = {
     id?: true
     text?: true
+    rating?: true
     createdAt?: true
     userId?: true
+    gameId?: true
     reviewId?: true
   }
 
   export type CommentMaxAggregateInputType = {
     id?: true
     text?: true
+    rating?: true
     createdAt?: true
     userId?: true
+    gameId?: true
     reviewId?: true
   }
 
   export type CommentCountAggregateInputType = {
     id?: true
     text?: true
+    rating?: true
     createdAt?: true
     userId?: true
+    gameId?: true
     reviewId?: true
     _all?: true
   }
@@ -5908,9 +5965,11 @@ export namespace Prisma {
   export type CommentGroupByOutputType = {
     id: number
     text: string
+    rating: number
     createdAt: Date
     userId: number
-    reviewId: number
+    gameId: number
+    reviewId: number | null
     _count: CommentCountAggregateOutputType | null
     _avg: CommentAvgAggregateOutputType | null
     _sum: CommentSumAggregateOutputType | null
@@ -5935,67 +5994,84 @@ export namespace Prisma {
   export type CommentSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     text?: boolean
+    rating?: boolean
     createdAt?: boolean
     userId?: boolean
+    gameId?: boolean
     reviewId?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
-    review?: boolean | ReviewDefaultArgs<ExtArgs>
+    game?: boolean | GameDefaultArgs<ExtArgs>
+    Review?: boolean | Comment$ReviewArgs<ExtArgs>
   }, ExtArgs["result"]["comment"]>
 
   export type CommentSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     text?: boolean
+    rating?: boolean
     createdAt?: boolean
     userId?: boolean
+    gameId?: boolean
     reviewId?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
-    review?: boolean | ReviewDefaultArgs<ExtArgs>
+    game?: boolean | GameDefaultArgs<ExtArgs>
+    Review?: boolean | Comment$ReviewArgs<ExtArgs>
   }, ExtArgs["result"]["comment"]>
 
   export type CommentSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     text?: boolean
+    rating?: boolean
     createdAt?: boolean
     userId?: boolean
+    gameId?: boolean
     reviewId?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
-    review?: boolean | ReviewDefaultArgs<ExtArgs>
+    game?: boolean | GameDefaultArgs<ExtArgs>
+    Review?: boolean | Comment$ReviewArgs<ExtArgs>
   }, ExtArgs["result"]["comment"]>
 
   export type CommentSelectScalar = {
     id?: boolean
     text?: boolean
+    rating?: boolean
     createdAt?: boolean
     userId?: boolean
+    gameId?: boolean
     reviewId?: boolean
   }
 
-  export type CommentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "text" | "createdAt" | "userId" | "reviewId", ExtArgs["result"]["comment"]>
+  export type CommentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "text" | "rating" | "createdAt" | "userId" | "gameId" | "reviewId", ExtArgs["result"]["comment"]>
   export type CommentInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
-    review?: boolean | ReviewDefaultArgs<ExtArgs>
+    game?: boolean | GameDefaultArgs<ExtArgs>
+    Review?: boolean | Comment$ReviewArgs<ExtArgs>
   }
   export type CommentIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
-    review?: boolean | ReviewDefaultArgs<ExtArgs>
+    game?: boolean | GameDefaultArgs<ExtArgs>
+    Review?: boolean | Comment$ReviewArgs<ExtArgs>
   }
   export type CommentIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
-    review?: boolean | ReviewDefaultArgs<ExtArgs>
+    game?: boolean | GameDefaultArgs<ExtArgs>
+    Review?: boolean | Comment$ReviewArgs<ExtArgs>
   }
 
   export type $CommentPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Comment"
     objects: {
       user: Prisma.$UserPayload<ExtArgs>
-      review: Prisma.$ReviewPayload<ExtArgs>
+      game: Prisma.$GamePayload<ExtArgs>
+      Review: Prisma.$ReviewPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
       text: string
+      rating: number
       createdAt: Date
       userId: number
-      reviewId: number
+      gameId: number
+      reviewId: number | null
     }, ExtArgs["result"]["comment"]>
     composites: {}
   }
@@ -6391,7 +6467,8 @@ export namespace Prisma {
   export interface Prisma__CommentClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    review<T extends ReviewDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ReviewDefaultArgs<ExtArgs>>): Prisma__ReviewClient<$Result.GetResult<Prisma.$ReviewPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    game<T extends GameDefaultArgs<ExtArgs> = {}>(args?: Subset<T, GameDefaultArgs<ExtArgs>>): Prisma__GameClient<$Result.GetResult<Prisma.$GamePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    Review<T extends Comment$ReviewArgs<ExtArgs> = {}>(args?: Subset<T, Comment$ReviewArgs<ExtArgs>>): Prisma__ReviewClient<$Result.GetResult<Prisma.$ReviewPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -6423,8 +6500,10 @@ export namespace Prisma {
   interface CommentFieldRefs {
     readonly id: FieldRef<"Comment", 'Int'>
     readonly text: FieldRef<"Comment", 'String'>
+    readonly rating: FieldRef<"Comment", 'Int'>
     readonly createdAt: FieldRef<"Comment", 'DateTime'>
     readonly userId: FieldRef<"Comment", 'Int'>
+    readonly gameId: FieldRef<"Comment", 'Int'>
     readonly reviewId: FieldRef<"Comment", 'Int'>
   }
     
@@ -6822,6 +6901,25 @@ export namespace Prisma {
   }
 
   /**
+   * Comment.Review
+   */
+  export type Comment$ReviewArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Review
+     */
+    select?: ReviewSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Review
+     */
+    omit?: ReviewOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ReviewInclude<ExtArgs> | null
+    where?: ReviewWhereInput
+  }
+
+  /**
    * Comment without action
    */
   export type CommentDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -6900,8 +6998,10 @@ export namespace Prisma {
   export const CommentScalarFieldEnum: {
     id: 'id',
     text: 'text',
+    rating: 'rating',
     createdAt: 'createdAt',
     userId: 'userId',
+    gameId: 'gameId',
     reviewId: 'reviewId'
   };
 
@@ -6922,6 +7022,14 @@ export namespace Prisma {
   };
 
   export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
+
+
+  export const NullsOrder: {
+    first: 'first',
+    last: 'last'
+  };
+
+  export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
 
 
   /**
@@ -7052,6 +7160,7 @@ export namespace Prisma {
     rating?: DecimalFilter<"Game"> | Decimal | DecimalJsLike | number | string
     category?: StringFilter<"Game"> | string
     reviews?: ReviewListRelationFilter
+    Comment?: CommentListRelationFilter
   }
 
   export type GameOrderByWithRelationInput = {
@@ -7062,6 +7171,7 @@ export namespace Prisma {
     rating?: SortOrder
     category?: SortOrder
     reviews?: ReviewOrderByRelationAggregateInput
+    Comment?: CommentOrderByRelationAggregateInput
   }
 
   export type GameWhereUniqueInput = Prisma.AtLeast<{
@@ -7075,6 +7185,7 @@ export namespace Prisma {
     rating?: DecimalFilter<"Game"> | Decimal | DecimalJsLike | number | string
     category?: StringFilter<"Game"> | string
     reviews?: ReviewListRelationFilter
+    Comment?: CommentListRelationFilter
   }, "id">
 
   export type GameOrderByWithAggregationInput = {
@@ -7237,21 +7348,27 @@ export namespace Prisma {
     NOT?: CommentWhereInput | CommentWhereInput[]
     id?: IntFilter<"Comment"> | number
     text?: StringFilter<"Comment"> | string
+    rating?: IntFilter<"Comment"> | number
     createdAt?: DateTimeFilter<"Comment"> | Date | string
     userId?: IntFilter<"Comment"> | number
-    reviewId?: IntFilter<"Comment"> | number
+    gameId?: IntFilter<"Comment"> | number
+    reviewId?: IntNullableFilter<"Comment"> | number | null
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
-    review?: XOR<ReviewScalarRelationFilter, ReviewWhereInput>
+    game?: XOR<GameScalarRelationFilter, GameWhereInput>
+    Review?: XOR<ReviewNullableScalarRelationFilter, ReviewWhereInput> | null
   }
 
   export type CommentOrderByWithRelationInput = {
     id?: SortOrder
     text?: SortOrder
+    rating?: SortOrder
     createdAt?: SortOrder
     userId?: SortOrder
-    reviewId?: SortOrder
+    gameId?: SortOrder
+    reviewId?: SortOrderInput | SortOrder
     user?: UserOrderByWithRelationInput
-    review?: ReviewOrderByWithRelationInput
+    game?: GameOrderByWithRelationInput
+    Review?: ReviewOrderByWithRelationInput
   }
 
   export type CommentWhereUniqueInput = Prisma.AtLeast<{
@@ -7260,19 +7377,24 @@ export namespace Prisma {
     OR?: CommentWhereInput[]
     NOT?: CommentWhereInput | CommentWhereInput[]
     text?: StringFilter<"Comment"> | string
+    rating?: IntFilter<"Comment"> | number
     createdAt?: DateTimeFilter<"Comment"> | Date | string
     userId?: IntFilter<"Comment"> | number
-    reviewId?: IntFilter<"Comment"> | number
+    gameId?: IntFilter<"Comment"> | number
+    reviewId?: IntNullableFilter<"Comment"> | number | null
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
-    review?: XOR<ReviewScalarRelationFilter, ReviewWhereInput>
+    game?: XOR<GameScalarRelationFilter, GameWhereInput>
+    Review?: XOR<ReviewNullableScalarRelationFilter, ReviewWhereInput> | null
   }, "id">
 
   export type CommentOrderByWithAggregationInput = {
     id?: SortOrder
     text?: SortOrder
+    rating?: SortOrder
     createdAt?: SortOrder
     userId?: SortOrder
-    reviewId?: SortOrder
+    gameId?: SortOrder
+    reviewId?: SortOrderInput | SortOrder
     _count?: CommentCountOrderByAggregateInput
     _avg?: CommentAvgOrderByAggregateInput
     _max?: CommentMaxOrderByAggregateInput
@@ -7286,9 +7408,11 @@ export namespace Prisma {
     NOT?: CommentScalarWhereWithAggregatesInput | CommentScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"Comment"> | number
     text?: StringWithAggregatesFilter<"Comment"> | string
+    rating?: IntWithAggregatesFilter<"Comment"> | number
     createdAt?: DateTimeWithAggregatesFilter<"Comment"> | Date | string
     userId?: IntWithAggregatesFilter<"Comment"> | number
-    reviewId?: IntWithAggregatesFilter<"Comment"> | number
+    gameId?: IntWithAggregatesFilter<"Comment"> | number
+    reviewId?: IntNullableWithAggregatesFilter<"Comment"> | number | null
   }
 
   export type CategoryCreateInput = {
@@ -7330,6 +7454,7 @@ export namespace Prisma {
     rating: Decimal | DecimalJsLike | number | string
     category: string
     reviews?: ReviewCreateNestedManyWithoutGameInput
+    Comment?: CommentCreateNestedManyWithoutGameInput
   }
 
   export type GameUncheckedCreateInput = {
@@ -7340,6 +7465,7 @@ export namespace Prisma {
     rating: Decimal | DecimalJsLike | number | string
     category: string
     reviews?: ReviewUncheckedCreateNestedManyWithoutGameInput
+    Comment?: CommentUncheckedCreateNestedManyWithoutGameInput
   }
 
   export type GameUpdateInput = {
@@ -7349,6 +7475,7 @@ export namespace Prisma {
     rating?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     category?: StringFieldUpdateOperationsInput | string
     reviews?: ReviewUpdateManyWithoutGameNestedInput
+    Comment?: CommentUpdateManyWithoutGameNestedInput
   }
 
   export type GameUncheckedUpdateInput = {
@@ -7359,6 +7486,7 @@ export namespace Prisma {
     rating?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     category?: StringFieldUpdateOperationsInput | string
     reviews?: ReviewUncheckedUpdateManyWithoutGameNestedInput
+    Comment?: CommentUncheckedUpdateManyWithoutGameNestedInput
   }
 
   export type GameCreateManyInput = {
@@ -7512,53 +7640,66 @@ export namespace Prisma {
 
   export type CommentCreateInput = {
     text: string
+    rating: number
     createdAt?: Date | string
     user: UserCreateNestedOneWithoutCommentsInput
-    review: ReviewCreateNestedOneWithoutCommentsInput
+    game: GameCreateNestedOneWithoutCommentInput
+    Review?: ReviewCreateNestedOneWithoutCommentsInput
   }
 
   export type CommentUncheckedCreateInput = {
     id?: number
     text: string
+    rating: number
     createdAt?: Date | string
     userId: number
-    reviewId: number
+    gameId: number
+    reviewId?: number | null
   }
 
   export type CommentUpdateInput = {
     text?: StringFieldUpdateOperationsInput | string
+    rating?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutCommentsNestedInput
-    review?: ReviewUpdateOneRequiredWithoutCommentsNestedInput
+    game?: GameUpdateOneRequiredWithoutCommentNestedInput
+    Review?: ReviewUpdateOneWithoutCommentsNestedInput
   }
 
   export type CommentUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     text?: StringFieldUpdateOperationsInput | string
+    rating?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     userId?: IntFieldUpdateOperationsInput | number
-    reviewId?: IntFieldUpdateOperationsInput | number
+    gameId?: IntFieldUpdateOperationsInput | number
+    reviewId?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type CommentCreateManyInput = {
     id?: number
     text: string
+    rating: number
     createdAt?: Date | string
     userId: number
-    reviewId: number
+    gameId: number
+    reviewId?: number | null
   }
 
   export type CommentUpdateManyMutationInput = {
     text?: StringFieldUpdateOperationsInput | string
+    rating?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type CommentUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     text?: StringFieldUpdateOperationsInput | string
+    rating?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     userId?: IntFieldUpdateOperationsInput | number
-    reviewId?: IntFieldUpdateOperationsInput | number
+    gameId?: IntFieldUpdateOperationsInput | number
+    reviewId?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type IntFilter<$PrismaModel = never> = {
@@ -7661,7 +7802,17 @@ export namespace Prisma {
     none?: ReviewWhereInput
   }
 
+  export type CommentListRelationFilter = {
+    every?: CommentWhereInput
+    some?: CommentWhereInput
+    none?: CommentWhereInput
+  }
+
   export type ReviewOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type CommentOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -7727,16 +7878,6 @@ export namespace Prisma {
     gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
-  }
-
-  export type CommentListRelationFilter = {
-    every?: CommentWhereInput
-    some?: CommentWhereInput
-    none?: CommentWhereInput
-  }
-
-  export type CommentOrderByRelationAggregateInput = {
-    _count?: SortOrder
   }
 
   export type UserCountOrderByAggregateInput = {
@@ -7836,45 +7977,87 @@ export namespace Prisma {
     gameId?: SortOrder
   }
 
-  export type ReviewScalarRelationFilter = {
-    is?: ReviewWhereInput
-    isNot?: ReviewWhereInput
+  export type IntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type ReviewNullableScalarRelationFilter = {
+    is?: ReviewWhereInput | null
+    isNot?: ReviewWhereInput | null
+  }
+
+  export type SortOrderInput = {
+    sort: SortOrder
+    nulls?: NullsOrder
   }
 
   export type CommentCountOrderByAggregateInput = {
     id?: SortOrder
     text?: SortOrder
+    rating?: SortOrder
     createdAt?: SortOrder
     userId?: SortOrder
+    gameId?: SortOrder
     reviewId?: SortOrder
   }
 
   export type CommentAvgOrderByAggregateInput = {
     id?: SortOrder
+    rating?: SortOrder
     userId?: SortOrder
+    gameId?: SortOrder
     reviewId?: SortOrder
   }
 
   export type CommentMaxOrderByAggregateInput = {
     id?: SortOrder
     text?: SortOrder
+    rating?: SortOrder
     createdAt?: SortOrder
     userId?: SortOrder
+    gameId?: SortOrder
     reviewId?: SortOrder
   }
 
   export type CommentMinOrderByAggregateInput = {
     id?: SortOrder
     text?: SortOrder
+    rating?: SortOrder
     createdAt?: SortOrder
     userId?: SortOrder
+    gameId?: SortOrder
     reviewId?: SortOrder
   }
 
   export type CommentSumOrderByAggregateInput = {
     id?: SortOrder
+    rating?: SortOrder
     userId?: SortOrder
+    gameId?: SortOrder
     reviewId?: SortOrder
+  }
+
+  export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -7896,11 +8079,25 @@ export namespace Prisma {
     connect?: ReviewWhereUniqueInput | ReviewWhereUniqueInput[]
   }
 
+  export type CommentCreateNestedManyWithoutGameInput = {
+    create?: XOR<CommentCreateWithoutGameInput, CommentUncheckedCreateWithoutGameInput> | CommentCreateWithoutGameInput[] | CommentUncheckedCreateWithoutGameInput[]
+    connectOrCreate?: CommentCreateOrConnectWithoutGameInput | CommentCreateOrConnectWithoutGameInput[]
+    createMany?: CommentCreateManyGameInputEnvelope
+    connect?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+  }
+
   export type ReviewUncheckedCreateNestedManyWithoutGameInput = {
     create?: XOR<ReviewCreateWithoutGameInput, ReviewUncheckedCreateWithoutGameInput> | ReviewCreateWithoutGameInput[] | ReviewUncheckedCreateWithoutGameInput[]
     connectOrCreate?: ReviewCreateOrConnectWithoutGameInput | ReviewCreateOrConnectWithoutGameInput[]
     createMany?: ReviewCreateManyGameInputEnvelope
     connect?: ReviewWhereUniqueInput | ReviewWhereUniqueInput[]
+  }
+
+  export type CommentUncheckedCreateNestedManyWithoutGameInput = {
+    create?: XOR<CommentCreateWithoutGameInput, CommentUncheckedCreateWithoutGameInput> | CommentCreateWithoutGameInput[] | CommentUncheckedCreateWithoutGameInput[]
+    connectOrCreate?: CommentCreateOrConnectWithoutGameInput | CommentCreateOrConnectWithoutGameInput[]
+    createMany?: CommentCreateManyGameInputEnvelope
+    connect?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
   }
 
   export type DecimalFieldUpdateOperationsInput = {
@@ -7925,6 +8122,20 @@ export namespace Prisma {
     deleteMany?: ReviewScalarWhereInput | ReviewScalarWhereInput[]
   }
 
+  export type CommentUpdateManyWithoutGameNestedInput = {
+    create?: XOR<CommentCreateWithoutGameInput, CommentUncheckedCreateWithoutGameInput> | CommentCreateWithoutGameInput[] | CommentUncheckedCreateWithoutGameInput[]
+    connectOrCreate?: CommentCreateOrConnectWithoutGameInput | CommentCreateOrConnectWithoutGameInput[]
+    upsert?: CommentUpsertWithWhereUniqueWithoutGameInput | CommentUpsertWithWhereUniqueWithoutGameInput[]
+    createMany?: CommentCreateManyGameInputEnvelope
+    set?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+    disconnect?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+    delete?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+    connect?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+    update?: CommentUpdateWithWhereUniqueWithoutGameInput | CommentUpdateWithWhereUniqueWithoutGameInput[]
+    updateMany?: CommentUpdateManyWithWhereWithoutGameInput | CommentUpdateManyWithWhereWithoutGameInput[]
+    deleteMany?: CommentScalarWhereInput | CommentScalarWhereInput[]
+  }
+
   export type ReviewUncheckedUpdateManyWithoutGameNestedInput = {
     create?: XOR<ReviewCreateWithoutGameInput, ReviewUncheckedCreateWithoutGameInput> | ReviewCreateWithoutGameInput[] | ReviewUncheckedCreateWithoutGameInput[]
     connectOrCreate?: ReviewCreateOrConnectWithoutGameInput | ReviewCreateOrConnectWithoutGameInput[]
@@ -7937,6 +8148,20 @@ export namespace Prisma {
     update?: ReviewUpdateWithWhereUniqueWithoutGameInput | ReviewUpdateWithWhereUniqueWithoutGameInput[]
     updateMany?: ReviewUpdateManyWithWhereWithoutGameInput | ReviewUpdateManyWithWhereWithoutGameInput[]
     deleteMany?: ReviewScalarWhereInput | ReviewScalarWhereInput[]
+  }
+
+  export type CommentUncheckedUpdateManyWithoutGameNestedInput = {
+    create?: XOR<CommentCreateWithoutGameInput, CommentUncheckedCreateWithoutGameInput> | CommentCreateWithoutGameInput[] | CommentUncheckedCreateWithoutGameInput[]
+    connectOrCreate?: CommentCreateOrConnectWithoutGameInput | CommentCreateOrConnectWithoutGameInput[]
+    upsert?: CommentUpsertWithWhereUniqueWithoutGameInput | CommentUpsertWithWhereUniqueWithoutGameInput[]
+    createMany?: CommentCreateManyGameInputEnvelope
+    set?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+    disconnect?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+    delete?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+    connect?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+    update?: CommentUpdateWithWhereUniqueWithoutGameInput | CommentUpdateWithWhereUniqueWithoutGameInput[]
+    updateMany?: CommentUpdateManyWithWhereWithoutGameInput | CommentUpdateManyWithWhereWithoutGameInput[]
+    deleteMany?: CommentScalarWhereInput | CommentScalarWhereInput[]
   }
 
   export type ReviewCreateNestedManyWithoutUserInput = {
@@ -8103,6 +8328,12 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput
   }
 
+  export type GameCreateNestedOneWithoutCommentInput = {
+    create?: XOR<GameCreateWithoutCommentInput, GameUncheckedCreateWithoutCommentInput>
+    connectOrCreate?: GameCreateOrConnectWithoutCommentInput
+    connect?: GameWhereUniqueInput
+  }
+
   export type ReviewCreateNestedOneWithoutCommentsInput = {
     create?: XOR<ReviewCreateWithoutCommentsInput, ReviewUncheckedCreateWithoutCommentsInput>
     connectOrCreate?: ReviewCreateOrConnectWithoutCommentsInput
@@ -8117,12 +8348,30 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutCommentsInput, UserUpdateWithoutCommentsInput>, UserUncheckedUpdateWithoutCommentsInput>
   }
 
-  export type ReviewUpdateOneRequiredWithoutCommentsNestedInput = {
+  export type GameUpdateOneRequiredWithoutCommentNestedInput = {
+    create?: XOR<GameCreateWithoutCommentInput, GameUncheckedCreateWithoutCommentInput>
+    connectOrCreate?: GameCreateOrConnectWithoutCommentInput
+    upsert?: GameUpsertWithoutCommentInput
+    connect?: GameWhereUniqueInput
+    update?: XOR<XOR<GameUpdateToOneWithWhereWithoutCommentInput, GameUpdateWithoutCommentInput>, GameUncheckedUpdateWithoutCommentInput>
+  }
+
+  export type ReviewUpdateOneWithoutCommentsNestedInput = {
     create?: XOR<ReviewCreateWithoutCommentsInput, ReviewUncheckedCreateWithoutCommentsInput>
     connectOrCreate?: ReviewCreateOrConnectWithoutCommentsInput
     upsert?: ReviewUpsertWithoutCommentsInput
+    disconnect?: ReviewWhereInput | boolean
+    delete?: ReviewWhereInput | boolean
     connect?: ReviewWhereUniqueInput
     update?: XOR<XOR<ReviewUpdateToOneWithWhereWithoutCommentsInput, ReviewUpdateWithoutCommentsInput>, ReviewUncheckedUpdateWithoutCommentsInput>
+  }
+
+  export type NullableIntFieldUpdateOperationsInput = {
+    set?: number | null
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
   }
 
   export type NestedIntFilter<$PrismaModel = never> = {
@@ -8246,6 +8495,44 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
+  export type NestedIntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+
+  export type NestedFloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+  }
+
   export type ReviewCreateWithoutGameInput = {
     rating: number
     text: string
@@ -8272,6 +8559,33 @@ export namespace Prisma {
 
   export type ReviewCreateManyGameInputEnvelope = {
     data: ReviewCreateManyGameInput | ReviewCreateManyGameInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type CommentCreateWithoutGameInput = {
+    text: string
+    rating: number
+    createdAt?: Date | string
+    user: UserCreateNestedOneWithoutCommentsInput
+    Review?: ReviewCreateNestedOneWithoutCommentsInput
+  }
+
+  export type CommentUncheckedCreateWithoutGameInput = {
+    id?: number
+    text: string
+    rating: number
+    createdAt?: Date | string
+    userId: number
+    reviewId?: number | null
+  }
+
+  export type CommentCreateOrConnectWithoutGameInput = {
+    where: CommentWhereUniqueInput
+    create: XOR<CommentCreateWithoutGameInput, CommentUncheckedCreateWithoutGameInput>
+  }
+
+  export type CommentCreateManyGameInputEnvelope = {
+    data: CommentCreateManyGameInput | CommentCreateManyGameInput[]
     skipDuplicates?: boolean
   }
 
@@ -8302,6 +8616,35 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Review"> | Date | string
     userId?: IntFilter<"Review"> | number
     gameId?: IntFilter<"Review"> | number
+  }
+
+  export type CommentUpsertWithWhereUniqueWithoutGameInput = {
+    where: CommentWhereUniqueInput
+    update: XOR<CommentUpdateWithoutGameInput, CommentUncheckedUpdateWithoutGameInput>
+    create: XOR<CommentCreateWithoutGameInput, CommentUncheckedCreateWithoutGameInput>
+  }
+
+  export type CommentUpdateWithWhereUniqueWithoutGameInput = {
+    where: CommentWhereUniqueInput
+    data: XOR<CommentUpdateWithoutGameInput, CommentUncheckedUpdateWithoutGameInput>
+  }
+
+  export type CommentUpdateManyWithWhereWithoutGameInput = {
+    where: CommentScalarWhereInput
+    data: XOR<CommentUpdateManyMutationInput, CommentUncheckedUpdateManyWithoutGameInput>
+  }
+
+  export type CommentScalarWhereInput = {
+    AND?: CommentScalarWhereInput | CommentScalarWhereInput[]
+    OR?: CommentScalarWhereInput[]
+    NOT?: CommentScalarWhereInput | CommentScalarWhereInput[]
+    id?: IntFilter<"Comment"> | number
+    text?: StringFilter<"Comment"> | string
+    rating?: IntFilter<"Comment"> | number
+    createdAt?: DateTimeFilter<"Comment"> | Date | string
+    userId?: IntFilter<"Comment"> | number
+    gameId?: IntFilter<"Comment"> | number
+    reviewId?: IntNullableFilter<"Comment"> | number | null
   }
 
   export type ReviewCreateWithoutUserInput = {
@@ -8335,15 +8678,19 @@ export namespace Prisma {
 
   export type CommentCreateWithoutUserInput = {
     text: string
+    rating: number
     createdAt?: Date | string
-    review: ReviewCreateNestedOneWithoutCommentsInput
+    game: GameCreateNestedOneWithoutCommentInput
+    Review?: ReviewCreateNestedOneWithoutCommentsInput
   }
 
   export type CommentUncheckedCreateWithoutUserInput = {
     id?: number
     text: string
+    rating: number
     createdAt?: Date | string
-    reviewId: number
+    gameId: number
+    reviewId?: number | null
   }
 
   export type CommentCreateOrConnectWithoutUserInput = {
@@ -8388,17 +8735,6 @@ export namespace Prisma {
     data: XOR<CommentUpdateManyMutationInput, CommentUncheckedUpdateManyWithoutUserInput>
   }
 
-  export type CommentScalarWhereInput = {
-    AND?: CommentScalarWhereInput | CommentScalarWhereInput[]
-    OR?: CommentScalarWhereInput[]
-    NOT?: CommentScalarWhereInput | CommentScalarWhereInput[]
-    id?: IntFilter<"Comment"> | number
-    text?: StringFilter<"Comment"> | string
-    createdAt?: DateTimeFilter<"Comment"> | Date | string
-    userId?: IntFilter<"Comment"> | number
-    reviewId?: IntFilter<"Comment"> | number
-  }
-
   export type UserCreateWithoutReviewsInput = {
     email: string
     password: string
@@ -8425,6 +8761,7 @@ export namespace Prisma {
     tags: string
     rating: Decimal | DecimalJsLike | number | string
     category: string
+    Comment?: CommentCreateNestedManyWithoutGameInput
   }
 
   export type GameUncheckedCreateWithoutReviewsInput = {
@@ -8434,6 +8771,7 @@ export namespace Prisma {
     tags: string
     rating: Decimal | DecimalJsLike | number | string
     category: string
+    Comment?: CommentUncheckedCreateNestedManyWithoutGameInput
   }
 
   export type GameCreateOrConnectWithoutReviewsInput = {
@@ -8443,15 +8781,19 @@ export namespace Prisma {
 
   export type CommentCreateWithoutReviewInput = {
     text: string
+    rating: number
     createdAt?: Date | string
     user: UserCreateNestedOneWithoutCommentsInput
+    game: GameCreateNestedOneWithoutCommentInput
   }
 
   export type CommentUncheckedCreateWithoutReviewInput = {
     id?: number
     text: string
+    rating: number
     createdAt?: Date | string
     userId: number
+    gameId: number
   }
 
   export type CommentCreateOrConnectWithoutReviewInput = {
@@ -8507,6 +8849,7 @@ export namespace Prisma {
     tags?: StringFieldUpdateOperationsInput | string
     rating?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     category?: StringFieldUpdateOperationsInput | string
+    Comment?: CommentUpdateManyWithoutGameNestedInput
   }
 
   export type GameUncheckedUpdateWithoutReviewsInput = {
@@ -8516,6 +8859,7 @@ export namespace Prisma {
     tags?: StringFieldUpdateOperationsInput | string
     rating?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     category?: StringFieldUpdateOperationsInput | string
+    Comment?: CommentUncheckedUpdateManyWithoutGameNestedInput
   }
 
   export type CommentUpsertWithWhereUniqueWithoutReviewInput = {
@@ -8552,6 +8896,30 @@ export namespace Prisma {
   export type UserCreateOrConnectWithoutCommentsInput = {
     where: UserWhereUniqueInput
     create: XOR<UserCreateWithoutCommentsInput, UserUncheckedCreateWithoutCommentsInput>
+  }
+
+  export type GameCreateWithoutCommentInput = {
+    image: string
+    name: string
+    tags: string
+    rating: Decimal | DecimalJsLike | number | string
+    category: string
+    reviews?: ReviewCreateNestedManyWithoutGameInput
+  }
+
+  export type GameUncheckedCreateWithoutCommentInput = {
+    id?: number
+    image: string
+    name: string
+    tags: string
+    rating: Decimal | DecimalJsLike | number | string
+    category: string
+    reviews?: ReviewUncheckedCreateNestedManyWithoutGameInput
+  }
+
+  export type GameCreateOrConnectWithoutCommentInput = {
+    where: GameWhereUniqueInput
+    create: XOR<GameCreateWithoutCommentInput, GameUncheckedCreateWithoutCommentInput>
   }
 
   export type ReviewCreateWithoutCommentsInput = {
@@ -8604,6 +8972,36 @@ export namespace Prisma {
     reviews?: ReviewUncheckedUpdateManyWithoutUserNestedInput
   }
 
+  export type GameUpsertWithoutCommentInput = {
+    update: XOR<GameUpdateWithoutCommentInput, GameUncheckedUpdateWithoutCommentInput>
+    create: XOR<GameCreateWithoutCommentInput, GameUncheckedCreateWithoutCommentInput>
+    where?: GameWhereInput
+  }
+
+  export type GameUpdateToOneWithWhereWithoutCommentInput = {
+    where?: GameWhereInput
+    data: XOR<GameUpdateWithoutCommentInput, GameUncheckedUpdateWithoutCommentInput>
+  }
+
+  export type GameUpdateWithoutCommentInput = {
+    image?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    tags?: StringFieldUpdateOperationsInput | string
+    rating?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    category?: StringFieldUpdateOperationsInput | string
+    reviews?: ReviewUpdateManyWithoutGameNestedInput
+  }
+
+  export type GameUncheckedUpdateWithoutCommentInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    image?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    tags?: StringFieldUpdateOperationsInput | string
+    rating?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    category?: StringFieldUpdateOperationsInput | string
+    reviews?: ReviewUncheckedUpdateManyWithoutGameNestedInput
+  }
+
   export type ReviewUpsertWithoutCommentsInput = {
     update: XOR<ReviewUpdateWithoutCommentsInput, ReviewUncheckedUpdateWithoutCommentsInput>
     create: XOR<ReviewCreateWithoutCommentsInput, ReviewUncheckedCreateWithoutCommentsInput>
@@ -8643,6 +9041,15 @@ export namespace Prisma {
     userId: number
   }
 
+  export type CommentCreateManyGameInput = {
+    id?: number
+    text: string
+    rating: number
+    createdAt?: Date | string
+    userId: number
+    reviewId?: number | null
+  }
+
   export type ReviewUpdateWithoutGameInput = {
     rating?: IntFieldUpdateOperationsInput | number
     text?: StringFieldUpdateOperationsInput | string
@@ -8671,6 +9078,32 @@ export namespace Prisma {
     userId?: IntFieldUpdateOperationsInput | number
   }
 
+  export type CommentUpdateWithoutGameInput = {
+    text?: StringFieldUpdateOperationsInput | string
+    rating?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutCommentsNestedInput
+    Review?: ReviewUpdateOneWithoutCommentsNestedInput
+  }
+
+  export type CommentUncheckedUpdateWithoutGameInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    text?: StringFieldUpdateOperationsInput | string
+    rating?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    userId?: IntFieldUpdateOperationsInput | number
+    reviewId?: NullableIntFieldUpdateOperationsInput | number | null
+  }
+
+  export type CommentUncheckedUpdateManyWithoutGameInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    text?: StringFieldUpdateOperationsInput | string
+    rating?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    userId?: IntFieldUpdateOperationsInput | number
+    reviewId?: NullableIntFieldUpdateOperationsInput | number | null
+  }
+
   export type ReviewCreateManyUserInput = {
     id?: number
     rating: number
@@ -8683,8 +9116,10 @@ export namespace Prisma {
   export type CommentCreateManyUserInput = {
     id?: number
     text: string
+    rating: number
     createdAt?: Date | string
-    reviewId: number
+    gameId: number
+    reviewId?: number | null
   }
 
   export type ReviewUpdateWithoutUserInput = {
@@ -8717,49 +9152,63 @@ export namespace Prisma {
 
   export type CommentUpdateWithoutUserInput = {
     text?: StringFieldUpdateOperationsInput | string
+    rating?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    review?: ReviewUpdateOneRequiredWithoutCommentsNestedInput
+    game?: GameUpdateOneRequiredWithoutCommentNestedInput
+    Review?: ReviewUpdateOneWithoutCommentsNestedInput
   }
 
   export type CommentUncheckedUpdateWithoutUserInput = {
     id?: IntFieldUpdateOperationsInput | number
     text?: StringFieldUpdateOperationsInput | string
+    rating?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    reviewId?: IntFieldUpdateOperationsInput | number
+    gameId?: IntFieldUpdateOperationsInput | number
+    reviewId?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type CommentUncheckedUpdateManyWithoutUserInput = {
     id?: IntFieldUpdateOperationsInput | number
     text?: StringFieldUpdateOperationsInput | string
+    rating?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    reviewId?: IntFieldUpdateOperationsInput | number
+    gameId?: IntFieldUpdateOperationsInput | number
+    reviewId?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type CommentCreateManyReviewInput = {
     id?: number
     text: string
+    rating: number
     createdAt?: Date | string
     userId: number
+    gameId: number
   }
 
   export type CommentUpdateWithoutReviewInput = {
     text?: StringFieldUpdateOperationsInput | string
+    rating?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutCommentsNestedInput
+    game?: GameUpdateOneRequiredWithoutCommentNestedInput
   }
 
   export type CommentUncheckedUpdateWithoutReviewInput = {
     id?: IntFieldUpdateOperationsInput | number
     text?: StringFieldUpdateOperationsInput | string
+    rating?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     userId?: IntFieldUpdateOperationsInput | number
+    gameId?: IntFieldUpdateOperationsInput | number
   }
 
   export type CommentUncheckedUpdateManyWithoutReviewInput = {
     id?: IntFieldUpdateOperationsInput | number
     text?: StringFieldUpdateOperationsInput | string
+    rating?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     userId?: IntFieldUpdateOperationsInput | number
+    gameId?: IntFieldUpdateOperationsInput | number
   }
 
 

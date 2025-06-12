@@ -154,8 +154,10 @@ exports.Prisma.ReviewScalarFieldEnum = {
 exports.Prisma.CommentScalarFieldEnum = {
   id: 'id',
   text: 'text',
+  rating: 'rating',
   createdAt: 'createdAt',
   userId: 'userId',
+  gameId: 'gameId',
   reviewId: 'reviewId'
 };
 
@@ -167,6 +169,11 @@ exports.Prisma.SortOrder = {
 exports.Prisma.QueryMode = {
   default: 'default',
   insensitive: 'insensitive'
+};
+
+exports.Prisma.NullsOrder = {
+  first: 'first',
+  last: 'last'
 };
 
 
