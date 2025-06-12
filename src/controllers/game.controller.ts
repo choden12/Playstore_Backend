@@ -3,11 +3,17 @@ import { PrismaClient } from "../generated/prisma";
 
 const prisma = new PrismaClient();
 
+/**
+ * Get all games.
+ */
 export const getAllGames = async (req: Request, res: Response) => {
   const games = await prisma.game.findMany();
   res.json(games);
 };
 
+/**
+ * Get a game by ID.
+ */
 export const getGameById = async (req: Request, res: Response) => {
   const id = Number(req.params.id);
   const game = await prisma.game.findUnique({ where: { id } });
@@ -18,6 +24,9 @@ export const getGameById = async (req: Request, res: Response) => {
   res.json(game);
 };
 
+/**
+ * Create a new game.
+ */
 export const createGame = async (req: Request, res: Response) => {
   const { image, name, tags, rating, category } = req.body;
   if (!image || !name || !tags || typeof rating !== "number" || !category) {
@@ -30,6 +39,9 @@ export const createGame = async (req: Request, res: Response) => {
   res.status(201).json(game);
 };
 
+/**
+ * Update a game.
+ */
 export const updateGame = async (req: Request, res: Response) => {
   const id = Number(req.params.id);
   const { image, name, tags, rating, category } = req.body;
@@ -44,6 +56,9 @@ export const updateGame = async (req: Request, res: Response) => {
   }
 };
 
+/**
+ * Delete a game.
+ */
 export const deleteGame = async (req: Request, res: Response) => {
   const id = Number(req.params.id);
   try {

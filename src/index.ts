@@ -29,15 +29,15 @@ app.use(
 app.use(logger);
 
 // Mount user and game routes
-app.use("/api/users", userRoutes);
-app.use("/api", gameRoutes);
+app.use("/api/v1/users", userRoutes);
+app.use("/api/v1/games", gameRoutes);
 
 // Mount review and comment routes
-app.use("/api/reviews", reviewRoutes);
-app.use("/api/comments", commentRoutes);
+app.use("/api/v1/reviews", reviewRoutes);
+app.use("/api/v1/comments", commentRoutes);
 
 // Mount other API routes
-app.use("/api", routes);
+app.use("/api/v1", routes);
 
 // Central error handler
 app.use(errorHandler);
