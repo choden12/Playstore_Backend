@@ -105,3 +105,197 @@ curl -X POST http://localhost:4000/api/v1/users/signup \
 
 ## License
 MIT
+
+# How to Test All Endpoints in Postman
+
+## 1. Start Your Backend Server
+- Run `npm run dev` in your terminal.
+- Make sure you see `Server running at http://localhost:4000`.
+
+---
+
+## 2. For Each Endpoint, Create a Request
+
+### Example: User Signup
+
+- **Method:** POST
+- **URL:** `http://localhost:4000/api/v1/users/signup`
+- **Body:** (Go to Body > raw > JSON)
+  ```json
+  {
+    "email": "testuser@example.com",
+    "password": "secret123"
+  }
+  ```
+- **Headers:** `Content-Type: application/json`
+- **Click Send.**
+- **Expected:** Status 201, response contains a JWT token and user info.
+
+---
+
+### Example: User Login
+
+- **Method:** POST
+- **URL:** `http://localhost:4000/api/v1/users/login`
+- **Body:**
+  ```json
+  {
+    "email": "testuser@example.com",
+    "password": "secret123"
+  }
+  ```
+- **Click Send.**
+- **Expected:** Status 200, response contains a JWT token and user info.
+
+---
+
+### Example: Create Game (Protected)
+
+- **Method:** POST
+- **URL:** `http://localhost:4000/api/v1/games`
+- **Headers:**
+  - `Content-Type: application/json`
+  - `Authorization: Bearer <your-jwt-token-from-login>`
+- **Body:**
+  ```json
+  {
+    "image": "/mlbb.png",
+    "name": "Mobile Legends: Bang Bang",
+    "tags": "Action · Strategy · MOBA · Battling",
+    "rating": 4.0,
+    "category": "Action"
+  }
+  ```
+- **Click Send.**
+- **Expected:** Status 201, response contains the created game.
+
+---
+
+### Example: Get All Games
+
+- **Method:** GET
+- **URL:** `http://localhost:4000/api/v1/games`
+- **Click Send.**
+- **Expected:** Status 200, response contains a list of games.
+
+---
+
+### Example: Update Game (Protected)
+
+- **Method:** PUT
+- **URL:** `http://localhost:4000/api/v1/games/1`
+- **Headers:** (as above)
+- **Body:**
+  ```json
+  {
+    "image": "/mlbb.png",
+    "name": "MLBB Updated",
+    "tags": "Action · MOBA",
+    "rating": 4.5,
+    "category": "Action"
+  }
+  ```
+- **Click Send.**
+- **Expected:** Status 200, response contains the updated game.
+
+---
+
+### Example: Delete Game (Protected)
+
+- **Method:** DELETE
+- **URL:** `http://localhost:4000/api/v1/games/1`
+- **Headers:** (as above)
+- **Click Send.**
+- **Expected:** Status 204 (No Content).
+
+---
+
+### Example: Create Review (Protected)
+
+- **Method:** POST
+- **URL:** `http://localhost:4000/api/v1/reviews`
+- **Headers:** (as above)
+- **Body:**
+  ```json
+  {
+    "gameId": 2,
+    "rating": 5,
+    "text": "Awesome game!"
+  }
+  ```
+- **Click Send.**
+- **Expected:** Status 201, response contains the review.
+
+---
+
+### Example: Get Reviews for a Game
+
+- **Method:** GET
+- **URL:** `http://localhost:4000/api/v1/reviews/game/2`
+- **Click Send.**
+- **Expected:** Status 200, response contains reviews for game 2.
+
+---
+
+### Example: Create Comment (Protected)
+
+- **Method:** POST
+- **URL:** `http://localhost:4000/api/v1/comments`
+- **Headers:** (as above)
+- **Body:**
+  ```json
+  {
+    "gameId": 2,
+    "text": "Nice graphics!",
+    "rating": 4
+  }
+  ```
+- **Click Send.**
+- **Expected:** Status 201, response contains the comment.
+
+---
+
+### Example: Get Comments for a Game
+
+- **Method:** GET
+- **URL:** `http://localhost:4000/api/v1/comments/game/2`
+- **Click Send.**
+- **Expected:** Status 200, response contains comments for game 2.
+
+---
+
+## 3. Test Error Handling and Validation
+
+- Try sending invalid data (e.g., missing required fields, invalid types).
+- Try accessing protected endpoints without a token.
+- Try using an invalid token.
+- Try updating/deleting resources you don't own (should get 403 Forbidden).
+
+---
+
+## 4. Repeat for All Endpoints
+
+- Follow the same process for categories, users, reviews, comments, etc.
+- Refer to the endpoint list in this README for all available routes.
+
+---
+
+## Summary Table
+
+| Endpoint Example                  | Method | Auth Required | Body Example / Notes                |
+|-----------------------------------|--------|--------------|-------------------------------------|
+| /api/v1/users/signup              | POST   | No           | `{ "email": "...", "password": "..." }` |
+| /api/v1/users/login               | POST   | No           | `{ "email": "...", "password": "..." }` |
+| /api/v1/games                     | GET    | No           |                                     |
+| /api/v1/games                     | POST   | Yes          | `{ "image": "...", "name": "...", ... }` |
+| /api/v1/games/:id                 | PUT    | Yes          | `{ "image": "...", "name": "...", ... }` |
+| /api/v1/games/:id                 | DELETE | Yes          |                                     |
+| /api/v1/reviews                   | POST   | Yes          | `{ "gameId": 1, "rating": 5, "text": "..." }` |
+| /api/v1/comments                  | POST   | Yes          | `{ "gameId": 1, "text": "...", "rating": 4 }` |
+
+---
+
+**Tip:**  
+- Always use the JWT token from login/signup for protected endpoints.
+- Use the correct HTTP method and body format as shown above.
+- Check both success and error responses for each endpoint.
