@@ -9,6 +9,11 @@ import gameRoutes from "./routes/game.routes";
 import reviewRoutes from "./routes/reviewRoutes";
 import commentRoutes from "./routes/commentRoutes";
 
+/**
+ * Main Express application for Playstore Backend.
+ * Handles API routing, middleware, and error handling.
+ * @module app
+ */
 dotenv.config();
 const app = express();
 
@@ -27,6 +32,9 @@ app.use(
 
 // Logger middleware
 app.use(logger);
+
+// API Gateway integration placeholder
+// Example: app.use("/api", apiGatewayMiddleware);
 
 // Mount user and game routes
 app.use("/api/v1/users", userRoutes);

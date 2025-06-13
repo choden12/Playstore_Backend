@@ -1,72 +1,118 @@
-import { Request, Response } from "express";
+import { Request, Response, NextFunction } from "express";
+import { prisma } from "../utils/prisma.util";
+import Joi from "joi";
+import { formatError } from "../utils/error.util";
 
-// Example static games data
-const games = [
-  { id: 1, image: '/mlbb.png', name: 'Mobile Legends: Bang Bang', tags: 'Action · Strategy · MOBA · Battling', rating: 4.0 },
-  { id: 2, image: '/superbear.png', name: 'Super Bear Adventure', tags: 'Adventure · Action · Casual · Offline', rating: 4.4 },
-  { id: 3, image: '/iamcat.png', name: 'I Am Cat', tags: 'Simulation · Life · Casual · Offline', rating: 4.4 },
-  { id: 4, image: '/blockblast.jpg', name: 'Block Blast!', tags: 'Puzzle · Block · Casual · Offline', rating: 4.8 },
-  { id: 5, image: '/craftsman.png', name: 'Craftsman: Building Craft', tags: 'Simulation · Sandbox · Single player', rating: 3.4 },
-  { id: 6, image: '/pubg.png', name: 'PUBG MOBILE', tags: 'Action · Tactical shooter · Multiplayer', rating: 4.4 },
-  { id: 7, image: '/gameworld.png', name: 'Game World: Life Story', tags: 'Educational · Simulation · Life · Casual', rating: 4.7 },
-  { id: 8, image: '/holeio.png', name: 'Hole.io', tags: 'Arcade · Action · IO game · Casual', rating: 3.2 },
-  { id: 9, image: '/stickman.png', name: 'Stickman Party 234 MiniGames', tags: 'Arcade · Board · Party · Casual', rating: 4.5 },
-];
+/**
+ * Joi schema for game validation.
+ */
+const gameSchema = Joi.object({
+  image: Joi.string().min(1).required(),
+  name: Joi.string().min(2).max(100).required(),
+  tags: Joi.string().min(1).required(),
+  rating: Joi.number().min(0).max(5).required(),
+  category: Joi.string().min(2).max(100).required(),
+});
 
-// Get all games
-export const getAllGames = (req: Request, res: Response) => {
-  res.json(games);
-};
-
-// Get a game by ID
-export const getGameById = (req: Request, res: Response) => {
-  const id = Number(req.params.id);
-  const game = games.find(g => g.id === id);
-  if (!game) {
-    res.status(404).json({ error: "Game not found" });
-    return;
+/**
+ * Get all games.
+ */
+export const getAllGames = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const games = await prisma.game.findMany();
+    res.json(games);
+  } catch (err) {
+    next(err);
   }
-  res.json(game);
 };
 
-// Create a new game (in-memory only)
-export const createGame = (req: Request, res: Response) => {
-  const { name, image, tags, rating } = req.body;
-  if (!name || !image || !tags || typeof rating !== "number") {
-    res.status(400).json({ error: "Missing required fields" });
-    return;
+/**
+ * Get a game by ID.
+ */
+export const getGameById = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const id = Number(req.params.id);
+    if (isNaN(id)) {
+      return res
+        .status(400)
+        .json(formatError(400, "Invalid ID", ["Game ID must be a number"]));
+    }
+    const game = await prisma.game.findUnique({ where: { id } });
+    if (!game) {
+      return res
+        .status(404)
+        .json(formatError(404, "Not found", ["Game not found"]));
+    }
+    res.json(game);
+  } catch (err) {
+    next(err);
   }
-  const newGame = { id: Date.now(), name, image, tags, rating };
-  games.push(newGame);
-  res.status(201).json(newGame);
 };
 
-// Update a game (in-memory only)
-export const updateGame = (req: Request, res: Response) => {
-  const id = Number(req.params.id);
-  const idx = games.findIndex(g => g.id === id);
-  if (idx === -1) {
-    res.status(404).json({ error: "Game not found" });
-    return;
+/**
+ * Create a new game.
+ * @route POST /api/v1/games
+ * @access Protected (JWT)
+ */
+export const createGame = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const { error } = gameSchema.validate(req.body);
+    if (error) {
+      return res
+        .status(400)
+        .json(formatError(400, "Validation error", error.details.map((d) => d.message)));
+    }
+    const { image, name, tags, rating, category } = req.body;
+    const game = await prisma.game.create({
+      data: { image, name, tags, rating, category },
+    });
+    res.status(201).json(game);
+  } catch (err) {
+    next(err);
   }
-  const { name, image, tags, rating } = req.body;
-  games[idx] = { ...games[idx], name, image, tags, rating };
-  res.json(games[idx]);
 };
 
-// Delete a game (in-memory only)
-export const deleteGame = (req: Request, res: Response) => {
-  const id = Number(req.params.id);
-  const idx = games.findIndex(g => g.id === id);
-  if (idx === -1) {
-    res.status(404).json({ error: "Game not found" });
-    return;
+/**
+ * Update a game.
+ * @route PUT /api/v1/games/:id
+ * @access Protected (JWT)
+ */
+export const updateGame = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const id = Number(req.params.id);
+    const { error } = gameSchema.validate(req.body);
+    if (error) {
+      return res
+        .status(400)
+        .json(formatError(400, "Validation error", error.details.map((d) => d.message)));
+    }
+    const { image, name, tags, rating, category } = req.body;
+    const game = await prisma.game.update({
+      where: { id },
+      data: { image, name, tags, rating, category },
+    });
+    res.json(game);
+  } catch (err) {
+    next(err);
   }
-  games.splice(idx, 1);
-  res.status(204).send();
 };
 
-// Get all games for frontend (same as getAllGames)
-export const getAllGamesFrontend = (req: Request, res: Response) => {
-  res.json(games);
+/**
+ * Delete a game.
+ * @route DELETE /api/v1/games/:id
+ * @access Protected (JWT)
+ */
+export const deleteGame = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const id = Number(req.params.id);
+    await prisma.game.delete({ where: { id } });
+    res.status(204).send();
+  } catch (err) {
+    next(err);
+  }
 };
+
+/**
+ * Get all games for frontend (same as getAllGames).
+ */
+export const getAllGamesFrontend = getAllGames;

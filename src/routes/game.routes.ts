@@ -4,22 +4,26 @@ import { validateGame } from '../middleware/game.middleware';
 
 const router = Router();
 
+// Helper to wrap async route handlers
+const asyncHandler = (fn: any) => (req: any, res: any, next: any) =>
+  Promise.resolve(fn(req, res, next)).catch(next);
+
 // Get all games
-router.get('/', gameController.getAllGames);
+router.get('/', asyncHandler(gameController.getAllGames));
 
 // Get game by ID
-router.get('/:id', gameController.getGameById);
+router.get('/:id', asyncHandler(gameController.getGameById));
 
 // Create a new game
-router.post('/', validateGame, gameController.createGame);
+router.post('/', validateGame, asyncHandler(gameController.createGame));
 
 // Update an existing game
-router.put('/:id', validateGame, gameController.updateGame);
+router.put('/:id', validateGame, asyncHandler(gameController.updateGame));
 
 // Delete a game
-router.delete('/:id', gameController.deleteGame);
+router.delete('/:id', asyncHandler(gameController.deleteGame));
 
 // Get all games for frontend (with name/tags)
-router.get('/frontend/games', gameController.getAllGamesFrontend);
+router.get('/frontend/games', asyncHandler(gameController.getAllGamesFrontend));
 
 export default router;

@@ -1,7 +1,14 @@
 import { Request, Response, NextFunction } from "express";
-import { PrismaClient } from "../generated/prisma";
+import { prisma } from "../utils/prisma.util";
+import Joi from "joi";
+import { formatError } from "../utils/error.util";
 
-const prisma = new PrismaClient();
+/**
+ * Joi schema for category validation.
+ */
+const categorySchema = Joi.object({
+  name: Joi.string().min(2).max(100).required(),
+});
 
 /**
  * Get all categories.
@@ -29,8 +36,16 @@ export async function getCategoryById(
 ) {
   try {
     const id = Number(req.params.id);
+    if (isNaN(id)) {
+      return res
+        .status(400)
+        .json(formatError(400, "Invalid ID", ["Category ID must be a number"]));
+    }
     const category = await prisma.category.findUnique({ where: { id } });
-    if (!category) return res.status(404).json({ error: "Category not found" });
+    if (!category)
+      return res
+        .status(404)
+        .json(formatError(404, "Not found", ["Category not found"]));
     res.json(category);
   } catch (err) {
     next(err);
@@ -39,6 +54,8 @@ export async function getCategoryById(
 
 /**
  * Create a new category.
+ * @route POST /api/v1/categories
+ * @access Protected (JWT)
  */
 export async function createCategory(
   req: Request,
@@ -46,6 +63,18 @@ export async function createCategory(
   next: NextFunction
 ) {
   try {
+    const { error } = categorySchema.validate(req.body);
+    if (error) {
+      return res
+        .status(400)
+        .json(
+          formatError(
+            400,
+            "Validation error",
+            error.details.map((d) => d.message)
+          )
+        );
+    }
     const { name } = req.body;
     const category = await prisma.category.create({ data: { name } });
     res.status(201).json(category);
@@ -56,6 +85,8 @@ export async function createCategory(
 
 /**
  * Update a category.
+ * @route PUT /api/v1/categories/:id
+ * @access Protected (JWT)
  */
 export async function updateCategory(
   req: Request,
@@ -64,6 +95,18 @@ export async function updateCategory(
 ) {
   try {
     const id = Number(req.params.id);
+    const { error } = categorySchema.validate(req.body);
+    if (error) {
+      return res
+        .status(400)
+        .json(
+          formatError(
+            400,
+            "Validation error",
+            error.details.map((d) => d.message)
+          )
+        );
+    }
     const { name } = req.body;
     const category = await prisma.category.update({
       where: { id },
@@ -77,6 +120,8 @@ export async function updateCategory(
 
 /**
  * Delete a category.
+ * @route DELETE /api/v1/categories/:id
+ * @access Protected (JWT)
  */
 export async function deleteCategory(
   req: Request,
