@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import Joi from "joi";
 
+// Joi schema to validate game data in requests
 const gameSchema = Joi.object({
   image: Joi.string().min(1).required(),
   name: Joi.string().min(2).max(100).required(),

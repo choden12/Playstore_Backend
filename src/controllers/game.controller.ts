@@ -15,15 +15,25 @@ const gameSchema = Joi.object({
 });
 
 /**
- * Get all games.
+ * Default games to always return for GET /api/v1/games.
+ */
+const DEFAULT_GAMES = [
+  { id: 1, image: '/mlbb.png', name: 'Mobile Legends: Bang Bang', tags: 'Action · Strategy · MOBA · Battling', rating: 4.0, category: 'Action' },
+  { id: 2, image: '/superbear.png', name: 'Super Bear Adventure', tags: 'Adventure · Action · Casual · Offline', rating: 4.4, category: 'Adventure' },
+  { id: 3, image: '/iamcat.png', name: 'I Am Cat', tags: 'Simulation · Life · Casual · Offline', rating: 4.4, category: 'Simulation' },
+  { id: 4, image: '/blockblast.jpg', name: 'Block Blast!', tags: 'Puzzle · Block · Casual · Offline', rating: 4.8, category: 'Puzzle' },
+  { id: 5, image: '/craftsman.png', name: 'Craftsman: Building Craft', tags: 'Simulation · Sandbox · Single player', rating: 3.4, category: 'Simulation' },
+  { id: 6, image: '/pubg.png', name: 'PUBG MOBILE', tags: 'Action · Tactical shooter · Multiplayer', rating: 4.4, category: 'Action' },
+  { id: 7, image: '/gameworld.png', name: 'Game World: Life Story', tags: 'Educational · Simulation · Life · Casual', rating: 4.7, category: 'Educational' },
+  { id: 8, image: '/holeio.png', name: 'Hole.io', tags: 'Arcade · Action · IO game · Casual', rating: 3.2, category: 'Arcade' },
+  { id: 9, image: '/stickman.png', name: 'Stickman Party 234 MiniGames', tags: 'Arcade · Board · Party · Casual', rating: 4.5, category: 'Arcade' },
+];
+
+/**
+ * Get all games (always returns only the 9 default games).
  */
 export const getAllGames = async (req: Request, res: Response, next: NextFunction) => {
-  try {
-    const games = await prisma.game.findMany();
-    res.json(games);
-  } catch (err) {
-    next(err);
-  }
+  res.json(DEFAULT_GAMES);
 };
 
 /**

@@ -1,6 +1,7 @@
 import Joi from "joi";
 import { Request, Response, NextFunction } from "express";
 
+// Joi schema to validate category data
 const categorySchema = Joi.object({
   name: Joi.string().min(2).max(100).required(),
 });

@@ -1,13 +1,13 @@
 import { Request, Response, NextFunction } from "express";
 
 /**
- * Central error handler middleware.
+ * Central error handler.
  */
 export const errorHandler = (
   err: any,
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ) => {
   const status = err.status || 500;
   res.status(status).json({
