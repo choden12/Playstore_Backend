@@ -24,8 +24,9 @@ app.use(express.urlencoded({ extended: true }));
 // CORS middleware
 app.use(
   cors({
-    origin: process.env.ALLOWED_ORIGINS?.split(",") ||
-      process.env.CORS_ORIGIN?.split(",") || ["http://localhost:3000"],
+    origin: [
+      "http://localhost:5173"
+    ],
     credentials: true,
   })
 );
